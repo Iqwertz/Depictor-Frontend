@@ -1,1 +1,6 @@
-<app-camera-window></app-camera-window>
+<div class="camera-window-container">
+  <app-camera-window></app-camera-window>
+</div>
+<div class="open-camera" *ngIf="!cameraService.showWebcam">
+  <app-open-camera-button></app-open-camera-button>
+</div>

@@ -7,20 +7,29 @@ import { TakeSelfieComponent } from './sites/take-selfie/take-selfie.component';
 import { GcodeComponent } from './sites/gcode/gcode.component';
 import { CameraWindowComponent } from './components/camera-window/camera-window.component';
 import { WebcamModule } from 'ngx-webcam';
+import { CameraTriggerComponent } from './components/camera-trigger/camera-trigger.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OpenCameraButtonComponent } from './components/open-camera-button/open-camera-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TakeSelfieComponent,
     GcodeComponent,
-    CameraWindowComponent
+    CameraWindowComponent,
+    CameraTriggerComponent,
+    OpenCameraButtonComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     WebcamModule,
+    FontAwesomeModule,
+    BrowserModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

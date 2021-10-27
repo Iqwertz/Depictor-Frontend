@@ -1,0 +1,16 @@
+.camera-trigger {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 5px 5px 10px #000;
+  bottom: 50px;
+  left: calc(50% - 30px);
+  cursor: pointer;
+
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

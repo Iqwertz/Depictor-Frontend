@@ -1,7 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-  background: url("assets/drawenBG.svg") no-repeat center center fixed;;
+body {
+  background: url("assets/drawenBG.svg") no-repeat center center fixed;
   background-size: cover;
   margin: 0;
   padding: 0;
 }
+
+video {
+  border-radius: 15px;
+  box-shadow: -5px 5px 10px #000;
+  background-color: #000;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
