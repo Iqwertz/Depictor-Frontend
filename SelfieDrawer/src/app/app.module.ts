@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OpenCameraButtonComponent } from './components/open-camera-button/open-camera-button.component';
 import { FlashComponent } from './components/flash/flash.component';
 import { SelfieDisplayComponent } from './components/selfie-display/selfie-display.component';
+import { RetakeSelfieButtonComponent } from './components/retake-selfie-button/retake-selfie-button.component';
+import { SubmitSelfieComponent } from './components/submit-selfie/submit-selfie.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { SelfieDisplayComponent } from './components/selfie-display/selfie-displ
     OpenCameraButtonComponent,
     FlashComponent,
     SelfieDisplayComponent,
+    RetakeSelfieButtonComponent,
+    SubmitSelfieComponent,
   ],
   imports: [
     BrowserModule,

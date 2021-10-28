@@ -7,3 +7,7 @@
 <div class="open-camera" *ngIf="!cameraService.showWebcam">
   <app-open-camera-button></app-open-camera-button>
 </div>
+<div class="snapshot-controls" *ngIf="cameraService.webcamImage">
+  <app-retake-selfie-button></app-retake-selfie-button>
+  <app-submit-selfie></app-submit-selfie>
+</div>
