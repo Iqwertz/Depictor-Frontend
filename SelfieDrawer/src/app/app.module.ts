@@ -11,6 +11,7 @@ import { CameraTriggerComponent } from './components/camera-trigger/camera-trigg
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OpenCameraButtonComponent } from './components/open-camera-button/open-camera-button.component';
+import { FlashComponent } from './components/flash/flash.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { OpenCameraButtonComponent } from './components/open-camera-button/open-
     CameraWindowComponent,
     CameraTriggerComponent,
     OpenCameraButtonComponent,
+    FlashComponent,
   ],
   imports: [
     BrowserModule,

@@ -25,6 +25,8 @@ export class CameraServiceService {
 
   toggleWindow: Subject<void> = new Subject<void>();
 
+  $setFlash: Subject<void> = new Subject<void>();
+
   constructor() {
     WebcamUtil.getAvailableVideoInputs().then(
       (mediaDevices: MediaDeviceInfo[]) => {
@@ -33,12 +35,15 @@ export class CameraServiceService {
     );
   }
 
+  public setFlash(): void {
+    this.$setFlash.next();
+  }
+
   public toggleCameraWindow(): void {
     this.toggleWindow.next();
   }
 
   public triggerSnapshot(): void {
-    this.toggleCameraWindow();
     this.trigger.next();
   }
 
