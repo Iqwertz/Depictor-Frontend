@@ -1,0 +1,7 @@
+<div
+  class="selfie-container"
+  *ngIf="cameraService.webcamImage"
+  [@resizeSelfie]="isBig ? 'big' : 'small'"
+>
+  <img [src]="cameraService.webcamImage.imageAsDataUrl" />
+</div>

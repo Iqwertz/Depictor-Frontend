@@ -16,5 +16,9 @@ export class CameraTriggerComponent implements OnInit {
   triggerImage() {
     this.cameraService.triggerSnapshot();
     this.cameraService.setFlash();
+    this.cameraService.toggleCameraWindow();
+    setTimeout(() => {
+      this.cameraService.minimizeSnapshot();
+    }, 1500);
   }
 }

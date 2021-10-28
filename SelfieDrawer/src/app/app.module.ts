@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OpenCameraButtonComponent } from './components/open-camera-button/open-camera-button.component';
 import { FlashComponent } from './components/flash/flash.component';
+import { SelfieDisplayComponent } from './components/selfie-display/selfie-display.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FlashComponent } from './components/flash/flash.component';
     CameraTriggerComponent,
     OpenCameraButtonComponent,
     FlashComponent,
+    SelfieDisplayComponent,
   ],
   imports: [
     BrowserModule,
