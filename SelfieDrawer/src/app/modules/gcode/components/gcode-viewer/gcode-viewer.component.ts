@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import { Select } from '@ngxs/store';
 import { AppState } from '../../../../store/app.state';
+import { GcodeViewerService } from '../../services/gcode-viewer.service';
 
 @Component({
   selector: 'app-gcode-viewer',
@@ -12,24 +13,17 @@ export class GcodeViewerComponent implements OnInit {
   canvas: any;
   strokeColor = '#2E2E2E';
 
-  gcodeFile: string = '';
-  gcodeFileChanged: boolean = false;
-  gcodeScale: number = 2.7;
-
-  maxLines: number = 0;
-
-  notRenderdLines: number = 0;
-
   @Select(AppState.serverGcode)
   serverGcode$: any;
 
-  constructor() {}
+  constructor(private gcodeViewerService: GcodeViewerService) {}
 
   ngOnInit(): void {
     this.serverGcode$.subscribe((serverGcode: string) => {
-      this.gcodeFile = serverGcode;
-      this.maxLines = this.gcodeFile.split(/\r?\n/).length;
-      this.gcodeFileChanged = true;
+      this.gcodeViewerService.gcodeFile = serverGcode;
+      this.gcodeViewerService.maxLines =
+        this.gcodeViewerService.gcodeFile.split(/\r?\n/).length;
+      this.gcodeViewerService.gcodeFileChanged = true;
     });
 
     const sketch = (s: any) => {
@@ -50,14 +44,14 @@ export class GcodeViewerComponent implements OnInit {
       };
 
       s.draw = () => {
-        if (this.gcodeFileChanged) {
+        if (this.gcodeViewerService.gcodeFileChanged) {
           renderGcode(
-            this.gcodeFile,
-            this.gcodeScale,
+            this.gcodeViewerService.gcodeFile,
+            this.gcodeViewerService.gcodeScale,
             this.strokeColor,
-            this.notRenderdLines
+            this.gcodeViewerService.notRenderdLines
           );
-          this.gcodeFileChanged = false;
+          this.gcodeViewerService.gcodeFileChanged = false;
         }
       };
 
@@ -120,10 +114,5 @@ export class GcodeViewerComponent implements OnInit {
     };
 
     this.canvas = new p5(sketch);
-  }
-
-  sliderChanged() {
-    this.gcodeFileChanged = true;
-    console.log(this.notRenderdLines);
   }
 }

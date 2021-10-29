@@ -1,0 +1,10 @@
+<div class="renderdLinesSlider">
+  <mat-slider
+    [min]="0"
+    [max]="gcodeViewerService.maxLines"
+    step="100"
+    [(ngModel)]="gcodeViewerService.notRenderdLines"
+    (change)="sliderChanged()"
+    aria-label="lines"
+  ></mat-slider>
+</div>
