@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TakeSelfieComponent } from './sites/take-selfie/take-selfie.component';
-import { GcodeComponent } from './sites/gcode/gcode.component';
 import { CameraWindowComponent } from './components/camera-window/camera-window.component';
 import { WebcamModule } from 'ngx-webcam';
 import { CameraTriggerComponent } from './components/camera-trigger/camera-trigger.component';
@@ -15,12 +14,14 @@ import { FlashComponent } from './components/flash/flash.component';
 import { SelfieDisplayComponent } from './components/selfie-display/selfie-display.component';
 import { RetakeSelfieButtonComponent } from './components/retake-selfie-button/retake-selfie-button.component';
 import { SubmitSelfieComponent } from './components/submit-selfie/submit-selfie.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxsModule } from '@ngxs/store';
+import { AppState } from './store/app.state';
 
 @NgModule({
   declarations: [
     AppComponent,
     TakeSelfieComponent,
-    GcodeComponent,
     CameraWindowComponent,
     CameraTriggerComponent,
     OpenCameraButtonComponent,
@@ -36,6 +37,8 @@ import { SubmitSelfieComponent } from './components/submit-selfie/submit-selfie.
     FontAwesomeModule,
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    NgxsModule.forRoot([AppState]),
   ],
   providers: [],
   bootstrap: [AppComponent],
