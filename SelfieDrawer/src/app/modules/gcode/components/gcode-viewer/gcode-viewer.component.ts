@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵRender3NgModuleRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import { Select } from '@ngxs/store';
 import { AppState } from '../../../../store/app.state';
@@ -10,11 +10,15 @@ import { AppState } from '../../../../store/app.state';
 })
 export class GcodeViewerComponent implements OnInit {
   canvas: any;
-  sw: number = 2;
-  strokeColor = 0;
+  strokeColor = '#2E2E2E';
 
   gcodeFile: string = '';
   gcodeFileChanged: boolean = false;
+  gcodeScale: number = 2.7;
+
+  maxLines: number = 0;
+
+  notRenderdLines: number = 0;
 
   @Select(AppState.serverGcode)
   serverGcode$: any;
@@ -24,16 +28,22 @@ export class GcodeViewerComponent implements OnInit {
   ngOnInit(): void {
     this.serverGcode$.subscribe((serverGcode: string) => {
       this.gcodeFile = serverGcode;
+      this.maxLines = this.gcodeFile.split(/\r?\n/).length;
       this.gcodeFileChanged = true;
     });
 
     const sketch = (s: any) => {
       s.setup = () => {
-        let canvas2 = s.createCanvas(s.windowWidth / 2, s.windowHeight - 200);
+        let width = s.windowWidth / 2;
+        if (width < 700) {
+          width = s.windowWidth - 20;
+        }
+
+        let canvas2 = s.createCanvas(width, s.windowHeight - 200);
         // creating a reference to the div here positions it so you can put things above and below
         // where the sketch is displayed
         canvas2.parent('sketch-holder');
-        s.strokeWeight(this.sw + 1);
+        s.strokeWeight(3);
 
         s.rect(0, 0, s.width, s.height, 15);
         s.fill(0);
@@ -41,27 +51,50 @@ export class GcodeViewerComponent implements OnInit {
 
       s.draw = () => {
         if (this.gcodeFileChanged) {
-          renderGcode(this.gcodeFile);
+          renderGcode(
+            this.gcodeFile,
+            this.gcodeScale,
+            this.strokeColor,
+            this.notRenderdLines
+          );
           this.gcodeFileChanged = false;
         }
       };
 
-      function renderGcode(gcode: string) {
+      function renderGcode(
+        gcode: string,
+        scale: number,
+        c: any,
+        notRenderdLines: number
+      ) {
+        s.strokeWeight(3);
+        s.fill(255);
+        s.rect(0, 0, s.width, s.height, 15);
+
+        s.stroke(c);
         s.strokeWeight(1);
 
         let commands: string[] = gcode.split(/\r?\n/);
+
         let isPenDown: boolean = false;
 
         let lastCommandParameter: number[] = [0, 0];
-        for (let command of commands) {
+        let renderedLines = commands.length - notRenderdLines;
+        if (renderedLines <= 0) {
+          renderedLines = 0;
+        }
+
+        for (let i = 0; i < renderedLines; i++) {
+          let command: string = commands[i];
+
           if (command.startsWith('G1')) {
             let parameter: number[] = getG1Parameter(command);
             if (isPenDown) {
               s.line(
-                lastCommandParameter[1],
-                lastCommandParameter[0],
-                parameter[1],
-                parameter[0]
+                lastCommandParameter[1] * scale,
+                lastCommandParameter[0] * scale,
+                parameter[1] * scale,
+                parameter[0] * scale
               );
             }
             lastCommandParameter = parameter;
@@ -87,5 +120,10 @@ export class GcodeViewerComponent implements OnInit {
     };
 
     this.canvas = new p5(sketch);
+  }
+
+  sliderChanged() {
+    this.gcodeFileChanged = true;
+    console.log(this.notRenderdLines);
   }
 }
