@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BackendConnectService } from '../../services/backend-connect.service';
 
 @Component({
   selector: 'app-submit-selfie',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./submit-selfie.component.scss'],
 })
 export class SubmitSelfieComponent implements OnInit {
-  constructor() {}
+  constructor(private connectService: BackendConnectService) {}
 
   ngOnInit(): void {}
 
-  submit(): void {}
+  submit(): void {
+    this.connectService.postSelfie();
+  }
 }

@@ -3,6 +3,7 @@ import * as p5 from 'p5';
 import { Select } from '@ngxs/store';
 import { AppState } from '../../../../store/app.state';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
+import { BackendConnectService } from '../../../../services/backend-connect.service';
 
 @Component({
   selector: 'app-gcode-viewer',
@@ -85,10 +86,10 @@ export class GcodeViewerComponent implements OnInit {
             let parameter: number[] = getG1Parameter(command);
             if (isPenDown) {
               s.line(
-                lastCommandParameter[1] * scale,
                 lastCommandParameter[0] * scale,
-                parameter[1] * scale,
-                parameter[0] * scale
+                lastCommandParameter[1] * scale,
+                parameter[0] * scale,
+                parameter[1] * scale
               );
             }
             lastCommandParameter = parameter;
