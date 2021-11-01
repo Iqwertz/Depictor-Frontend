@@ -17,6 +17,7 @@ import { SubmitSelfieComponent } from './components/submit-selfie/submit-selfie.
 import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { AppState } from './store/app.state';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AppState } from './store/app.state';
     SelfieDisplayComponent,
     RetakeSelfieButtonComponent,
     SubmitSelfieComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Store } from '@ngxs/store';
 import { SetServerGcode } from '../store/app.action';
 import { Router } from '@angular/router';
+import { LoadingService } from './loading.service';
 
 export type AppStates =
   | 'idle'
@@ -21,12 +22,14 @@ export class BackendConnectService {
     private cameraService: CameraServiceService,
     private http: HttpClient,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {}
 
   postSelfie() {
     if (this.cameraService.webcamImage) {
       let img = this.cameraService.webcamImage.imageAsBase64;
+      this.loadingService.isLoading = true;
       this.http
         .post('http://' + environment.ip + '/newPicture', { img: img })
         .subscribe((res) => {
@@ -45,8 +48,10 @@ export class BackendConnectService {
       .post('http://' + environment.ip + '/checkProgress', {})
       .subscribe((res: any) => {
         console.log(res);
+        this.loadingService.serverResponseToLoadingText(res.appState);
         if (res.appState == 'rawGcodeReady') {
           this.store.dispatch(new SetServerGcode(res.rawGcode));
+          this.loadingService.isLoading = false;
           this.router.navigate(['gcode']);
         } else if (res.appState != 'idle' || res.appState != 'Drawing') {
           setTimeout(() => {
