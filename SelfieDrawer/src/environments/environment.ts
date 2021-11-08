@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  ip: 'localhost:3001',
+  ip: '192.168.0.53:3001', //'localhost:3001',
+  endGcode: 'M05;\nG01X0Y0;',
 };
 
 /*

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
+import { CameraServiceService } from '../../../../services/camera-service.service';
 
 @Component({
   selector: 'app-cancle-button',
@@ -10,7 +11,8 @@ import { GcodeViewerService } from '../../services/gcode-viewer.service';
 export class CancleButtonComponent implements OnInit {
   constructor(
     private gcodeViewerService: GcodeViewerService,
-    private router: Router
+    private router: Router,
+    private cameraService: CameraServiceService
   ) {}
 
   ngOnInit(): void {}
@@ -18,6 +20,7 @@ export class CancleButtonComponent implements OnInit {
   cancle() {
     this.gcodeViewerService.gcodeFile = '';
     this.gcodeViewerService.maxLines = 0;
+    this.cameraService.webcamImage = null;
     this.router.navigate(['']);
   }
 }
