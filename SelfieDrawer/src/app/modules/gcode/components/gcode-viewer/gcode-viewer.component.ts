@@ -13,6 +13,7 @@ import { BackendConnectService } from '../../../../services/backend-connect.serv
 export class GcodeViewerComponent implements OnInit {
   canvas: any;
   strokeColor = '#2E2E2E';
+  offset: number[] = [0, 0];
 
   @Select(AppState.serverGcode)
   serverGcode$: any;
@@ -46,21 +47,57 @@ export class GcodeViewerComponent implements OnInit {
 
       s.draw = () => {
         if (this.gcodeViewerService.gcodeFileChanged) {
+          //   scales the gcode to fit window and centers it
+          let bounds = getBiggestValue(this.gcodeViewerService.gcodeFile);
+
+          this.offset = [0, 0];
+
+          if (s.width / s.height < bounds[0] / bounds[1]) {
+            //can be optimized when called only once per new gcode file (not at any change)
+            this.gcodeViewerService.gcodeScale = s.width / bounds[0];
+            this.offset[1] = (s.width - bounds[0]) / 2;
+          } else {
+            this.gcodeViewerService.gcodeScale = s.height / bounds[1];
+            this.offset[0] = (s.height - bounds[1]) / 2;
+          }
+
+          console.log(this.offset);
+
+          //renders gcode
           renderGcode(
             this.gcodeViewerService.gcodeFile,
             this.gcodeViewerService.gcodeScale,
             this.strokeColor,
-            this.gcodeViewerService.notRenderdLines
+            this.gcodeViewerService.notRenderdLines,
+            this.offset
           );
           this.gcodeViewerService.gcodeFileChanged = false;
         }
       };
 
+      function getBiggestValue(gcode: string): number[] {
+        //determins the farthest cordinates
+        let commands: string[] = gcode.split(/\r?\n/);
+        let biggest: number[] = [0, 0];
+        for (let cmd of commands) {
+          let cords: number[] = getG1Parameter(cmd);
+          if (cords[0] > biggest[0]) {
+            biggest[0] = cords[0];
+          }
+          if (cords[1] > biggest[1]) {
+            biggest[1] = cords[1];
+          }
+        }
+
+        return biggest;
+      }
+
       function renderGcode(
         gcode: string,
         scale: number,
         c: any,
-        notRenderdLines: number
+        notRenderdLines: number,
+        offset: number[]
       ) {
         s.strokeWeight(3);
         s.fill(255);
@@ -86,10 +123,10 @@ export class GcodeViewerComponent implements OnInit {
             let parameter: number[] = getG1Parameter(command);
             if (isPenDown) {
               s.line(
-                lastCommandParameter[0] * scale,
-                lastCommandParameter[1] * scale,
-                parameter[0] * scale,
-                parameter[1] * scale
+                lastCommandParameter[0] * scale + offset[0],
+                lastCommandParameter[1] * scale + offset[1],
+                parameter[0] * scale + offset[0],
+                parameter[1] * scale + offset[1]
               );
             }
             lastCommandParameter = parameter;

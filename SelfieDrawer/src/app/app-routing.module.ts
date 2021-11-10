@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TakeSelfieComponent } from './sites/take-selfie/take-selfie.component';
+import { ConnectingComponent } from './sites/connecting/connecting.component';
 
 const routes: Routes = [
   {
     path: '',
     component: TakeSelfieComponent,
+  },
+  {
+    path: 'connecting',
+    component: ConnectingComponent,
   },
   {
     path: 'gcode',

@@ -8,7 +8,7 @@ export class GcodeViewerService {
   notRenderdLines: number = 0;
   gcodeFile: string = '';
   gcodeFileChanged: boolean = false;
-  gcodeScale: number = 3.2;
+  gcodeScale: number = 4.5;
 
   constructor() {}
 }

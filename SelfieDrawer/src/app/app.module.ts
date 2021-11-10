@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { AppState } from './store/app.state';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ConnectingComponent } from './sites/connecting/connecting.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     RetakeSelfieButtonComponent,
     SubmitSelfieComponent,
     LoadingComponent,
+    ConnectingComponent,
   ],
   imports: [
     BrowserModule,
