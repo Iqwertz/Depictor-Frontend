@@ -16,6 +16,7 @@ export class RetakeSelfieButtonComponent implements OnInit {
 
   retake() {
     this.cameraService.webcamImage = null;
+    this.cameraService.base64Image = null;
     this.cameraService.toggleCameraWindow();
   }
 }

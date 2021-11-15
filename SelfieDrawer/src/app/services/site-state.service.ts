@@ -52,6 +52,8 @@ export class SiteStateService {
       }
     });
 
+    this.checkServerState();
+
     setInterval(() => {
       this.checkServerState();
     }, environment.appStateCheckInterval);
@@ -64,11 +66,13 @@ export class SiteStateService {
         this.serverOnline = true;
 
         if (res.state == 'idle') {
+          //this.loadingService.isLoading = false;
           this.router.navigate(['']);
         } else if (
           res.state == 'processingImage' ||
           res.state == 'removingBg'
         ) {
+          this.loadingService.isLoading = true;
           this.loadingService.serverResponseToLoadingText(res.state);
         } else if (res.state == 'rawGcodeReady') {
           if (res.data && this.lastAppState != 'rawGcodeReady') {

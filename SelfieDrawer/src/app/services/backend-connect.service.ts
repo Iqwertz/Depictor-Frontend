@@ -28,8 +28,8 @@ export class BackendConnectService {
   }
 
   postSelfie() {
-    if (this.cameraService.webcamImage) {
-      let img = this.cameraService.webcamImage.imageAsBase64;
+    if (this.cameraService.base64Image) {
+      let img = this.cameraService.base64Image.split('base64,')[1];
       this.loadingService.isLoading = true;
       this.http
         .post('http://' + this.ip + '/newPicture', { img: img })

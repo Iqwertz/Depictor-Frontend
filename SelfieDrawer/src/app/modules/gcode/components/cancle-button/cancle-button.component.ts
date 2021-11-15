@@ -23,6 +23,7 @@ export class CancleButtonComponent implements OnInit {
     this.gcodeViewerService.gcodeFile = '';
     this.gcodeViewerService.maxLines = 0;
     this.cameraService.webcamImage = null;
+    this.cameraService.base64Image = null;
     this.backendConnectService.cancle();
     this.router.navigate(['']);
   }

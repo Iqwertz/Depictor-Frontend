@@ -15,6 +15,7 @@ export class CameraServiceService {
 
   // latest snapshot
   public webcamImage: WebcamImage | null = null;
+  public base64Image: string | null = null;
 
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
@@ -71,6 +72,7 @@ export class CameraServiceService {
   public handleImage(webcamImage: WebcamImage): void {
     console.info('received webcam image', webcamImage);
     this.webcamImage = webcamImage;
+    this.base64Image = webcamImage.imageAsDataUrl;
   }
 
   public cameraWasSwitched(deviceId: string): void {
