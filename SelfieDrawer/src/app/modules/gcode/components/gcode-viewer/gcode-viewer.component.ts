@@ -50,17 +50,22 @@ export class GcodeViewerComponent implements OnInit {
           //   scales the gcode to fit window and centers it
           let bounds = getBiggestValue(this.gcodeViewerService.gcodeFile);
 
+          console.log(bounds);
+          console.log(s.width, s.height);
           this.offset = [0, 0];
 
           if (s.width / s.height < bounds[0] / bounds[1]) {
             //can be optimized when called only once per new gcode file (not at any change)
             this.gcodeViewerService.gcodeScale = s.width / bounds[0];
-            this.offset[1] = (s.width - bounds[0]) / 2;
+            this.offset[1] =
+              (s.height - bounds[1] * this.gcodeViewerService.gcodeScale) / 2;
           } else {
             this.gcodeViewerService.gcodeScale = s.height / bounds[1];
-            this.offset[0] = (s.height - bounds[1]) / 2;
+            this.offset[0] =
+              (s.width - bounds[0] * this.gcodeViewerService.gcodeScale) / 2;
           }
 
+          console.log(this.gcodeViewerService.gcodeScale);
           console.log(this.offset);
 
           //renders gcode
