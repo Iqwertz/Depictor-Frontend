@@ -54,6 +54,17 @@ export class BackendConnectService {
     );
   }
 
+  checkDrawingProgress(): Observable<any> {
+    return this.http.post<StateResponse>(
+      'http://' + this.ip + '/getDrawingProgress',
+      {}
+    );
+  }
+
+  getGcode(): Observable<StateResponse> {
+    return this.http.post<StateResponse>('http://' + this.ip + '/getGcode', {});
+  }
+
   postGcode(gcode: string) {
     this.http
       .post('http://' + this.ip + '/postGcode', { gcode: gcode })

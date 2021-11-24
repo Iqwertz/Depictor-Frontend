@@ -75,14 +75,38 @@ export class SiteStateService {
           this.loadingService.isLoading = true;
           this.loadingService.serverResponseToLoadingText(res.state);
         } else if (res.state == 'rawGcodeReady') {
-          if (res.data && this.lastAppState != 'rawGcodeReady') {
-            this.store.dispatch(new SetServerGcode(res.data));
-            this.loadingService.isLoading = false;
-            this.router.navigate(['gcode']);
+          if (this.lastAppState != 'rawGcodeReady') {
+            this.getGcode();
           }
         } else if (res.state == 'drawing') {
+          if (this.lastAppState != 'drawing') {
+            this.getGcode();
+          }
         } else if (res.state == 'error') {
           console.error('Something went wrong on the server!');
+        }
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status == 0) {
+          this.serverOnline = false;
+          console.log('Server Offline!');
+          this.router.navigate(['connecting']);
+        }
+      }
+    );
+  }
+
+  getGcode() {
+    this.backendConnectService.getGcode().subscribe(
+      (res: any) => {
+        if (res.data) {
+          this.store.dispatch(new SetServerGcode(res.data));
+          this.loadingService.isLoading = false;
+          if (res.state == 'drawing') {
+            this.router.navigate(['gcode', 'drawing']);
+          } else {
+            this.router.navigate(['gcode']);
+          }
         }
       },
       (error: HttpErrorResponse) => {

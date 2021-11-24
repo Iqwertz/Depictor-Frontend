@@ -12,6 +12,7 @@ export class SelectLinesSliderComponent implements OnInit {
   ngOnInit(): void {}
 
   sliderChanged() {
-    this.gcodeViewerService.gcodeFileChanged = true;
+    this.gcodeViewerService.$renderGcode.next();
+    //this.gcodeViewerService.gcodeFileChanged = true;
   }
 }

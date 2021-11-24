@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store, Select } from '@ngxs/store';
 import { SetServerGcode } from 'src/app/store/app.action';
 import { BackendConnectService } from '../../services/backend-connect.service';
+import { GcodeViewerService } from './services/gcode-viewer.service';
 
 @Component({
   selector: 'app-gcode',
@@ -10,22 +11,12 @@ import { BackendConnectService } from '../../services/backend-connect.service';
   styleUrls: ['./gcode.component.scss'],
 })
 export class GcodeComponent implements OnInit {
-  constructor(
-    private http: HttpClient,
-    private store: Store,
-    private backendConnectService: BackendConnectService
-  ) {}
+  constructor(private gcodeViewerService: GcodeViewerService) {}
 
   ngOnInit(): void {
     screen.orientation.lock('portrait');
 
-    this.backendConnectService.checkProgress();
-    /*     this.http
-      .get('assets/gcode_ich-removebg-previewnop3d.nc', {
-        responseType: 'text' as 'text',
-      })
-      .subscribe((data: string) => {
-        this.store.dispatch(new SetServerGcode(data));
-      }); */
+    this.gcodeViewerService.isDrawing = false;
+    this.gcodeViewerService.notRenderdLines = 0;
   }
 }
