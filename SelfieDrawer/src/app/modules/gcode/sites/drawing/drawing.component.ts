@@ -17,6 +17,7 @@ export class DrawingComponent implements OnInit {
   ngOnInit(): void {
     this.gcodeViewerService.isDrawing = true;
     this.gcodeViewerService.notRenderdLines = 0;
+    this.gcodeViewerService.$renderGcode.next();
     this.updateDrawingProgress();
   }
 

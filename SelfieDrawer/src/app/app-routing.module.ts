@@ -6,12 +6,13 @@ import { ConnectingComponent } from './sites/connecting/connecting.component';
 const routes: Routes = [
   {
     path: '',
-    component: TakeSelfieComponent,
-  },
-  {
-    path: 'connecting',
     component: ConnectingComponent,
   },
+  {
+    path: 'start',
+    component: TakeSelfieComponent,
+  },
+
   {
     path: 'gcode',
     loadChildren: () =>

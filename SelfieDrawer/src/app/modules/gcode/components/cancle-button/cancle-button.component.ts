@@ -25,6 +25,6 @@ export class CancleButtonComponent implements OnInit {
     this.cameraService.webcamImage = null;
     this.cameraService.base64Image = null;
     this.backendConnectService.cancle();
-    this.router.navigate(['']);
+    this.router.navigate(['start']);
   }
 }

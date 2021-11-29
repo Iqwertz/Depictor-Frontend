@@ -1,9 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Store, Select } from '@ngxs/store';
-import { SetServerGcode } from 'src/app/store/app.action';
-import { BackendConnectService } from '../../services/backend-connect.service';
-import { GcodeViewerService } from './services/gcode-viewer.service';
 
 @Component({
   selector: 'app-gcode',
@@ -11,12 +6,7 @@ import { GcodeViewerService } from './services/gcode-viewer.service';
   styleUrls: ['./gcode.component.scss'],
 })
 export class GcodeComponent implements OnInit {
-  constructor(private gcodeViewerService: GcodeViewerService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    screen.orientation.lock('portrait');
-
-    this.gcodeViewerService.isDrawing = false;
-    this.gcodeViewerService.notRenderdLines = 0;
-  }
+  ngOnInit(): void {}
 }

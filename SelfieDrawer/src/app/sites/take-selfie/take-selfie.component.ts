@@ -12,5 +12,8 @@ export class TakeSelfieComponent implements OnInit {
 
   enableCameraAPI: boolean = environment.useCameraAPI;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cameraService.base64Image = null;
+    this.cameraService.webcamImage = null;
+  }
 }

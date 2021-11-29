@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CameraServiceService } from './camera-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Store, Select } from '@ngxs/store';
-import { SetServerGcode } from '../store/app.action';
 import { Router } from '@angular/router';
 import { LoadingService } from './loading.service';
 import { AppState } from '../store/app.state';

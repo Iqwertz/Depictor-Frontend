@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
-import { Select } from '@ngxs/store';
-import { AppState } from '../../../../store/app.state';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
-import { BackendConnectService } from '../../../../services/backend-connect.service';
 
 @Component({
   selector: 'app-gcode-viewer',
@@ -17,34 +14,27 @@ export class GcodeViewerComponent implements OnInit {
   offset: number[] = [0, 0];
   lastDrawingCommand: string = '';
 
-  @Select(AppState.serverGcode)
-  serverGcode$: any;
-
   constructor(private gcodeViewerService: GcodeViewerService) {}
 
   ngOnInit(): void {
-    this.serverGcode$.subscribe((serverGcode: string) => {
-      this.gcodeViewerService.gcodeFile = serverGcode;
-      this.gcodeViewerService.maxLines =
-        this.gcodeViewerService.gcodeFile.split(/\r?\n/).length;
-      // this.gcodeViewerService.gcodeFileChanged = true;
-      this.gcodeViewerService.$renderGcode.next();
-    });
+    console.log('ini gcode viewer service');
 
     const sketch = (s: any) => {
       let that = this;
       let bounds;
       let lastDrawingPosition = 0;
 
+      console.log('start sketch');
+
       s.setup = () => {
+        console.log('sketch setup');
         let width = s.windowWidth / 2;
         if (width < 700) {
           width = s.windowWidth - 20;
         }
 
+        console.log(s.windowWidth, s.windowHeight);
         let canvas2 = s.createCanvas(width, s.windowHeight - 200);
-        // creating a reference to the div here positions it so you can put things above and below
-        // where the sketch is displayed
         canvas2.parent('sketch-holder');
         s.strokeWeight(3);
 
@@ -54,6 +44,8 @@ export class GcodeViewerComponent implements OnInit {
         this.gcodeViewerService.$renderGcode.subscribe(() => {
           renderGcode();
         });
+
+        renderGcode();
 
         this.gcodeViewerService.$updateDrawingGcode.subscribe(() => {
           updateDrawingGcode();
@@ -72,8 +64,8 @@ export class GcodeViewerComponent implements OnInit {
           );
 
           console.log(
-            lastDrawingPosition,
-            that.gcodeViewerService.drawingProgress
+            that.gcodeViewerService.drawingProgress,
+            that.gcodeViewerService.maxLines
           );
           if (snippet[snippet.length - 1].startsWith('G')) {
             drawGcode(
@@ -94,6 +86,7 @@ export class GcodeViewerComponent implements OnInit {
       }
 
       function renderGcode() {
+        console.log('rendering Gcode');
         //   scales the gcode to fit window and centers it
         bounds = getBiggestValue(that.gcodeViewerService.gcodeFile);
 

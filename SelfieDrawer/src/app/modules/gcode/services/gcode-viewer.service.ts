@@ -18,4 +18,10 @@ export class GcodeViewerService {
   $updateDrawingGcode: Subject<void> = new Subject<void>();
 
   constructor() {}
+
+  setGcodeFile(file: string) {
+    this.gcodeFile = file;
+    this.maxLines = this.gcodeFile.split(/\r?\n/).length;
+    this.$renderGcode.next();
+  }
 }
