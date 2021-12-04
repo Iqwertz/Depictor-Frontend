@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import * as p5 from 'p5';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 
@@ -8,7 +14,7 @@ import { GcodeViewerService } from '../../services/gcode-viewer.service';
   styleUrls: ['./gcode-viewer.component.scss'],
 })
 export class GcodeViewerComponent implements OnInit {
-  canvas: any;
+  canvas: p5 | null = null;
   strokeColor = '#2E2E2E';
   drawingStrokeColor = '#9e9e9e';
   offset: number[] = [0, 0];
@@ -86,7 +92,6 @@ export class GcodeViewerComponent implements OnInit {
       }
 
       function renderGcode() {
-        console.log('rendering Gcode');
         //   scales the gcode to fit window and centers it
         bounds = getBiggestValue(that.gcodeViewerService.gcodeFile);
 
@@ -148,6 +153,7 @@ export class GcodeViewerComponent implements OnInit {
         ignorePen: boolean,
         startCommand: string | null
       ) {
+        console.log('gcode: ', gcode);
         if (clear) {
           s.strokeWeight(3);
           s.fill(255);
