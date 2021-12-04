@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 
@@ -13,7 +7,7 @@ import { GcodeViewerService } from '../../services/gcode-viewer.service';
   templateUrl: './gcode-viewer.component.html',
   styleUrls: ['./gcode-viewer.component.scss'],
 })
-export class GcodeViewerComponent implements OnInit {
+export class GcodeViewerComponent implements AfterViewInit {
   canvas: p5 | null = null;
   strokeColor = '#2E2E2E';
   drawingStrokeColor = '#9e9e9e';
@@ -22,8 +16,12 @@ export class GcodeViewerComponent implements OnInit {
 
   constructor(private gcodeViewerService: GcodeViewerService) {}
 
-  ngOnInit(): void {
+  containerId: string = new Date().getTime().toString();
+
+  ngAfterViewInit(): void {
     console.log('ini gcode viewer service');
+
+    console.log(this.containerId);
 
     const sketch = (s: any) => {
       let that = this;
@@ -41,7 +39,7 @@ export class GcodeViewerComponent implements OnInit {
 
         console.log(s.windowWidth, s.windowHeight);
         let canvas2 = s.createCanvas(width, s.windowHeight - 200);
-        canvas2.parent('sketch-holder');
+        canvas2.parent(this.containerId);
         s.strokeWeight(3);
 
         s.rect(0, 0, s.width, s.height, 15);
@@ -153,7 +151,6 @@ export class GcodeViewerComponent implements OnInit {
         ignorePen: boolean,
         startCommand: string | null
       ) {
-        console.log('gcode: ', gcode);
         if (clear) {
           s.strokeWeight(3);
           s.fill(255);
