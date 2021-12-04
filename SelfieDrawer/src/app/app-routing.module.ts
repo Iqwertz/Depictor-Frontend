@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TakeSelfieComponent } from './sites/take-selfie/take-selfie.component';
 import { ConnectingComponent } from './sites/connecting/connecting.component';
+import { GcodeEditComponent } from './sites/gcode-edit/gcode-edit.component';
+import { DrawingComponent } from './sites/drawing/drawing.component';
 
 const routes: Routes = [
   {
@@ -12,11 +14,13 @@ const routes: Routes = [
     path: 'start',
     component: TakeSelfieComponent,
   },
-
   {
-    path: 'gcode',
-    loadChildren: () =>
-      import('./modules/gcode/gcode.module').then((m) => m.GcodeModule),
+    path: 'editGcode',
+    component: GcodeEditComponent,
+  },
+  {
+    path: 'drawing',
+    component: DrawingComponent,
   },
 ];
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
-import { CameraServiceService } from '../../../../services/camera-service.service';
-import { BackendConnectService } from '../../../../services/backend-connect.service';
+import { CameraServiceService } from '../../services/camera-service.service';
+import { BackendConnectService } from '../../services/backend-connect.service';
 
 @Component({
   selector: 'app-cancle-button',

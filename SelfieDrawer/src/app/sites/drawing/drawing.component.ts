@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SiteStateService } from '../../../../services/site-state.service';
-import { BackendConnectService } from '../../../../services/backend-connect.service';
+import { SiteStateService } from '../../services/site-state.service';
+import { BackendConnectService } from '../../services/backend-connect.service';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 
 @Component({

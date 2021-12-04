@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BackendConnectService } from '../../../../services/backend-connect.service';
+import { BackendConnectService } from '../../services/backend-connect.service';
 import { Select } from '@ngxs/store';
-import { AppState } from '../../../../store/app.state';
+import { AppState } from '../../store/app.state';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 import { environment } from 'src/environments/environment';
 

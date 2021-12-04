@@ -19,6 +19,14 @@ import { NgxsModule } from '@ngxs/store';
 import { AppState } from './store/app.state';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ConnectingComponent } from './sites/connecting/connecting.component';
+import { GcodeViewerComponent } from './components/gcode-viewer/gcode-viewer.component';
+import { StartDrawComponent } from './components/start-draw/start-draw.component';
+import { CancleButtonComponent } from './components/cancle-button/cancle-button.component';
+import { SelectLinesSliderComponent } from './components/select-lines-slider/select-lines-slider.component';
+import { DrawingComponent } from './sites/drawing/drawing.component';
+import { GcodeEditComponent } from './sites/gcode-edit/gcode-edit.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +41,12 @@ import { ConnectingComponent } from './sites/connecting/connecting.component';
     SubmitSelfieComponent,
     LoadingComponent,
     ConnectingComponent,
+    GcodeViewerComponent,
+    StartDrawComponent,
+    CancleButtonComponent,
+    SelectLinesSliderComponent,
+    DrawingComponent,
+    GcodeEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +55,8 @@ import { ConnectingComponent } from './sites/connecting/connecting.component';
     FontAwesomeModule,
     BrowserModule,
     BrowserAnimationsModule,
+    MatSliderModule,
+    FormsModule,
     HttpClientModule,
     NgxsModule.forRoot([AppState]),
   ],
