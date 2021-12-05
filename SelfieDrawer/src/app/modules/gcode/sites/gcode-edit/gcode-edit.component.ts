@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
-import { SiteStateService } from '../../services/site-state.service';
+import { SiteStateService } from '../../../../services/site-state.service';
 
 @Component({
   templateUrl: './gcode-edit.component.html',

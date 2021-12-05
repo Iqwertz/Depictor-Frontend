@@ -1,4 +1,4 @@
-import { GcodeViewerService } from './gcode-viewer.service';
+import { GcodeViewerService } from '../modules/gcode/services/gcode-viewer.service';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -112,9 +112,9 @@ export class SiteStateService {
           this.gcodeViewerService.setGcodeFile(res.data);
           this.loadingService.isLoading = false;
           if (res.state == 'drawing') {
-            this.router.navigate(['drawing']);
+            this.router.navigate(['gcode', 'drawing']);
           } else {
-            this.router.navigate(['editGcode']);
+            this.router.navigate(['gcode', 'editGcode']);
           }
         }
       },
