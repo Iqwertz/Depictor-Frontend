@@ -1,0 +1,30 @@
+<div class="progress-container">
+  <div class="progress">
+    <span
+      class="progress-bar shadow"
+      [ngStyle]="{
+        width:
+          calcProgressInPercent(
+            gcodeViewerService.drawingProgress,
+            gcodeViewerService.maxLines
+          ) + '%'
+      }"
+    ></span>
+    <span
+      class="progress-bar"
+      [ngStyle]="{
+        width:
+          calcProgressInPercent(
+            gcodeViewerService.drawingProgress,
+            gcodeViewerService.maxLines
+          ) + '%'
+      }"
+      >{{
+        calcProgressInPercent(
+          gcodeViewerService.drawingProgress,
+          gcodeViewerService.maxLines
+        )
+      }}%</span
+    >
+  </div>
+</div>

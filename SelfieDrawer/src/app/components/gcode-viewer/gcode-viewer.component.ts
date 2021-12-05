@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import * as p5 from 'p5';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 

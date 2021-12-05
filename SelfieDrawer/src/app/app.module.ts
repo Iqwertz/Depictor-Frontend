@@ -27,6 +27,7 @@ import { DrawingComponent } from './sites/drawing/drawing.component';
 import { GcodeEditComponent } from './sites/gcode-edit/gcode-edit.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
+import { DrawingProgressBarComponent } from './components/drawing-progress-bar/drawing-progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FormsModule } from '@angular/forms';
     SelectLinesSliderComponent,
     DrawingComponent,
     GcodeEditComponent,
+    DrawingProgressBarComponent,
   ],
   imports: [
     BrowserModule,
