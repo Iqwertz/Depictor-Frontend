@@ -1,43 +1,91 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import * as p5 from 'p5';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
+import { Subject } from 'rxjs';
+
+export interface GcodeRendererConfigInput {
+  strokeColor?: string;
+  strokeColorPassive?: string;
+  strokeWidth?: number;
+  notRenderdLines?: number;
+  gcodeScale?: number;
+  drawing?: boolean;
+}
+
+export interface GcodeRendererConfig {
+  strokeColor: string;
+  strokeColorPassive: string;
+  strokeWidth: number;
+  notRenderdLines: number;
+  gcodeScale: number;
+  drawing: boolean;
+}
 
 @Component({
-  selector: 'app-gcode-viewer',
-  templateUrl: './gcode-viewer.component.html',
-  styleUrls: ['./gcode-viewer.component.scss'],
+  selector: 'app-gcode-renderer',
+  templateUrl: './gcode-renderer.component.html',
+  styleUrls: ['./gcode-renderer.component.scss'],
 })
-export class GcodeViewerComponent implements AfterViewInit {
+export class GcodeRendererComponent implements AfterViewInit {
   canvas: p5 | null = null;
   strokeColor = '#2E2E2E';
   drawingStrokeColor = '#9e9e9e';
   offset: number[] = [0, 0];
   lastDrawingCommand: string = '';
 
+  $renderGcode: Subject<void> = new Subject<void>();
+  $updateDrawingGcode: Subject<void> = new Subject<void>();
+
+  sketch: any;
+
+  @Input('gcode') gcodeFile: string = '';
+
+  @Input('config') rendererConfigInput: GcodeRendererConfigInput = {};
+
+  progress: number = 0;
+
+  rendererConfig: GcodeRendererConfig = {
+    drawing: false,
+    gcodeScale: 0,
+    notRenderdLines: 0,
+    strokeColor: '',
+    strokeColorPassive: '',
+    strokeWidth: 0,
+  };
+
   constructor(private gcodeViewerService: GcodeViewerService) {}
 
   containerId: string = new Date().getTime().toString();
 
+  renderGcode(file: string, config: GcodeRendererConfigInput) {
+    this.gcodeFile = file;
+    this.rendererConfig = {
+      gcodeScale: config.gcodeScale || 4.5,
+      notRenderdLines: config.notRenderdLines || 0,
+      strokeColor: config.strokeColor || '#2E2E2E',
+      strokeColorPassive: config.strokeColorPassive || '#9e9e9e',
+      strokeWidth: config.strokeWidth || 1,
+      drawing: config.drawing || false,
+    };
+
+    this.$renderGcode.next();
+  }
+
+  updateDrawingGcode(prog: number) {
+    this.progress = prog;
+    this.$updateDrawingGcode.next();
+  }
+
   ngAfterViewInit(): void {
-    console.log('ini gcode viewer service');
-
-    console.log(this.containerId);
-
-    const sketch = (s: any) => {
+    this.sketch = (s: any) => {
       let that = this;
       let bounds;
       let lastDrawingPosition = 0;
-
-      console.log('start sketch');
-
       s.setup = () => {
-        console.log('sketch setup');
         let width = s.windowWidth / 2;
         if (width < 700) {
           width = s.windowWidth - 20;
         }
-
-        console.log(s.windowWidth, s.windowHeight);
         let canvas2 = s.createCanvas(width, s.windowHeight - 200);
         canvas2.parent(this.containerId);
         s.strokeWeight(3);
@@ -45,13 +93,11 @@ export class GcodeViewerComponent implements AfterViewInit {
         s.rect(0, 0, s.width, s.height, 15);
         s.fill(0);
 
-        this.gcodeViewerService.$renderGcode.subscribe(() => {
+        this.$renderGcode.subscribe(() => {
           renderGcode();
         });
 
-        renderGcode();
-
-        this.gcodeViewerService.$updateDrawingGcode.subscribe(() => {
+        this.$updateDrawingGcode.subscribe(() => {
           updateDrawingGcode();
         });
       };
@@ -59,24 +105,15 @@ export class GcodeViewerComponent implements AfterViewInit {
       s.draw = () => {};
 
       function updateDrawingGcode() {
-        if (that.gcodeViewerService.drawingProgress > lastDrawingPosition) {
-          let commands: string[] =
-            that.gcodeViewerService.gcodeFile.split(/\r?\n/);
-          let snippet = commands.slice(
-            lastDrawingPosition,
-            that.gcodeViewerService.drawingProgress
-          );
-
-          console.log(
-            that.gcodeViewerService.drawingProgress,
-            that.gcodeViewerService.maxLines
-          );
+        if (that.progress > lastDrawingPosition) {
+          let commands: string[] = that.gcodeFile.split(/\r?\n/);
+          let snippet = commands.slice(lastDrawingPosition, that.progress);
           if (snippet[snippet.length - 1].startsWith('G')) {
             drawGcode(
               snippet.join('\n'),
-              that.gcodeViewerService.gcodeScale,
-              that.strokeColor,
-              that.gcodeViewerService.notRenderdLines,
+              that.rendererConfig.gcodeScale,
+              that.rendererConfig.strokeColor,
+              that.rendererConfig.notRenderdLines,
               that.offset,
               false,
               true,
@@ -84,39 +121,44 @@ export class GcodeViewerComponent implements AfterViewInit {
             );
 
             that.lastDrawingCommand = snippet[snippet.length - 1];
-            lastDrawingPosition = that.gcodeViewerService.drawingProgress;
+            lastDrawingPosition = that.progress;
           }
         }
       }
 
+      function test() {
+        console.log('skadajkdopsakdpo');
+      }
       function renderGcode() {
         //   scales the gcode to fit window and centers it
-        bounds = getBiggestValue(that.gcodeViewerService.gcodeFile);
+        bounds = getBiggestValue(that.gcodeFile);
 
         that.offset = [0, 0];
 
         if (s.width / s.height < bounds[0] / bounds[1]) {
           //can be optimized when called only once per new gcode file (not at any change)
-          that.gcodeViewerService.gcodeScale = s.width / bounds[0];
+          that.rendererConfig.gcodeScale = s.width / bounds[0];
           that.offset[1] =
-            (s.height - bounds[1] * that.gcodeViewerService.gcodeScale) / 2;
+            (s.height - bounds[1] * that.rendererConfig.gcodeScale) / 2;
         } else {
-          that.gcodeViewerService.gcodeScale = s.height / bounds[1];
+          that.rendererConfig.gcodeScale = s.height / bounds[1];
           that.offset[0] =
-            (s.width - bounds[0] * that.gcodeViewerService.gcodeScale) / 2;
+            (s.width - bounds[0] * that.rendererConfig.gcodeScale) / 2;
         }
 
-        let color: string = that.strokeColor;
-        if (that.gcodeViewerService.isDrawing) {
-          color = that.drawingStrokeColor;
+        let color: string = that.rendererConfig.strokeColor;
+        if (that.rendererConfig.drawing) {
+          color = that.rendererConfig.strokeColorPassive;
         }
+
+        console.log(color);
 
         //renders gcode
         drawGcode(
-          that.gcodeViewerService.gcodeFile,
-          that.gcodeViewerService.gcodeScale,
+          that.gcodeFile,
+          that.rendererConfig.gcodeScale,
           color,
-          that.gcodeViewerService.notRenderdLines,
+          that.rendererConfig.notRenderdLines,
           that.offset,
           true,
           false,
@@ -210,6 +252,6 @@ export class GcodeViewerComponent implements AfterViewInit {
       }
     };
 
-    this.canvas = new p5(sketch);
+    this.canvas = new p5(this.sketch);
   }
 }

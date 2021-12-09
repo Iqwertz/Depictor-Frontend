@@ -1,4 +1,6 @@
 <div class="drawing-container">
-  <app-gcode-viewer></app-gcode-viewer>
-  <app-drawing-progress-bar></app-drawing-progress-bar>
+  <app-gcode-renderer></app-gcode-renderer>
+  <app-drawing-progress-bar
+    [progress]="drawingProgress"
+  ></app-drawing-progress-bar>
 </div>

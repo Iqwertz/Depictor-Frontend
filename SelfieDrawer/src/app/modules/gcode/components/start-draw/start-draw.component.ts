@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { BackendConnectService } from '../../../../services/backend-connect.service';
-import { GcodeViewerService } from '../../services/gcode-viewer.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-start-draw',
@@ -9,25 +6,13 @@ import { GcodeViewerService } from '../../services/gcode-viewer.service';
   styleUrls: ['./start-draw.component.scss'],
 })
 export class StartDrawComponent implements OnInit {
-  constructor(
-    private backendConnectService: BackendConnectService,
-    private gcodeViewerService: GcodeViewerService
-  ) {}
+  constructor() {}
+
+  @Output() clicked = new EventEmitter<number>();
 
   ngOnInit(): void {}
 
   startDraw() {
-    let serverGcode: string = this.gcodeViewerService.gcodeFile;
-
-    //console.log(serverGcode);
-    let gcodeArray: string[] = serverGcode.split('\n');
-
-    console.log(this.gcodeViewerService.notRenderdLines);
-    let strippedGcode: string = gcodeArray
-      .slice(0, this.gcodeViewerService.notRenderdLines * -1)
-      .join('\n');
-
-    strippedGcode += environment.endGcode;
-    this.backendConnectService.postGcode(strippedGcode);
+    this.clicked.emit();
   }
 }

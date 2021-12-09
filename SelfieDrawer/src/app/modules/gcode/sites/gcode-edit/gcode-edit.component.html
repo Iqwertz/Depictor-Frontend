@@ -1,6 +1,8 @@
 <div class="gcode-container">
-  <app-gcode-viewer></app-gcode-viewer>
-  <app-select-lines-slider></app-select-lines-slider>
-  <app-start-draw> </app-start-draw>
+  <app-gcode-renderer></app-gcode-renderer>
+  <app-select-lines-slider
+    (sliderUpdate)="sliderUpdated($event)"
+  ></app-select-lines-slider>
+  <app-start-draw (clicked)="startDraw()"> </app-start-draw>
   <app-cancle-button> </app-cancle-button>
 </div>

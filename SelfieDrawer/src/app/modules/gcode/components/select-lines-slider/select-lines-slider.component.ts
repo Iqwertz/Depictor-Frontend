@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 
 @Component({
@@ -9,10 +9,14 @@ import { GcodeViewerService } from '../../services/gcode-viewer.service';
 export class SelectLinesSliderComponent implements OnInit {
   constructor(public gcodeViewerService: GcodeViewerService) {}
 
+  notRenderdLines = 0;
+
+  @Output() sliderUpdate = new EventEmitter<number>();
+
   ngOnInit(): void {}
 
   sliderChanged() {
-    this.gcodeViewerService.$renderGcode.next();
+    this.sliderUpdate.emit(this.notRenderdLines);
     //this.gcodeViewerService.gcodeFileChanged = true;
   }
 }

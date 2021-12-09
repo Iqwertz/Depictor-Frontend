@@ -4,27 +4,16 @@
       class="progress-bar shadow"
       [ngStyle]="{
         width:
-          calcProgressInPercent(
-            gcodeViewerService.drawingProgress,
-            gcodeViewerService.maxLines
-          ) + '%'
+          calcProgressInPercent(progress, gcodeViewerService.maxLines) + '%'
       }"
     ></span>
     <span
       class="progress-bar"
       [ngStyle]="{
         width:
-          calcProgressInPercent(
-            gcodeViewerService.drawingProgress,
-            gcodeViewerService.maxLines
-          ) + '%'
+          calcProgressInPercent(progress, gcodeViewerService.maxLines) + '%'
       }"
-      >{{
-        calcProgressInPercent(
-          gcodeViewerService.drawingProgress,
-          gcodeViewerService.maxLines
-        )
-      }}%</span
+      >{{ calcProgressInPercent(progress, gcodeViewerService.maxLines) }}%</span
     >
   </div>
 </div>
