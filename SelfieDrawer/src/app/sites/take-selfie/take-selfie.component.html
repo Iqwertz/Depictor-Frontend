@@ -1,14 +1,15 @@
 <div class="selfie-display" *ngIf="cameraService.base64Image">
-  <app-selfie-display></app-selfie-display>
+    <app-selfie-display></app-selfie-display>
 </div>
 <div class="camera-window-container" *ngIf="enableCameraAPI">
-  <app-camera-window></app-camera-window>
+    <app-camera-window></app-camera-window>
 </div>
 <div class="open-camera" *ngIf="!cameraService.showWebcam">
-  <app-open-camera-button></app-open-camera-button>
+    <app-open-camera-button></app-open-camera-button>
 </div>
 <div class="snapshot-controls" *ngIf="cameraService.base64Image">
-  <app-retake-selfie-button></app-retake-selfie-button>
-  <app-submit-selfie></app-submit-selfie>
+    <app-retake-selfie-button></app-retake-selfie-button>
+    <app-submit-selfie></app-submit-selfie>
 </div>
+<app-gallery-button></app-gallery-button>
 <app-loading></app-loading>

@@ -19,6 +19,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AppState } from './store/app.state';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ConnectingComponent } from './sites/connecting/connecting.component';
+import { GalleryButtonComponent } from './components/gallery-button/gallery-button.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ConnectingComponent } from './sites/connecting/connecting.component';
     SubmitSelfieComponent,
     LoadingComponent,
     ConnectingComponent,
+    GalleryButtonComponent,
   ],
   imports: [
     BrowserModule,

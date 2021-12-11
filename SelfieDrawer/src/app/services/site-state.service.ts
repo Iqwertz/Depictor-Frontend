@@ -62,6 +62,10 @@ export class SiteStateService {
   }
 
   checkServerState() {
+    if (this.router.url == '/gcode/gallery') {
+      return;
+    }
+
     this.backendConnectService.checkProgress().subscribe(
       (res: StateResponse) => {
         console.log(res);

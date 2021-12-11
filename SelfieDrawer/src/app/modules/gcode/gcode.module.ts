@@ -12,6 +12,8 @@ import { DrawingComponent } from './sites/drawing/drawing.component';
 import { CancleButtonComponent } from './components/cancle-button/cancle-button.component';
 import { SelectLinesSliderComponent } from './components/select-lines-slider/select-lines-slider.component';
 import { GcodeRendererComponent } from './components/gcode-renderer/gcode-renderer.component';
+import { GalleryComponent } from './sites/gallery/gallery.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,14 @@ import { GcodeRendererComponent } from './components/gcode-renderer/gcode-render
     CancleButtonComponent,
     SelectLinesSliderComponent,
     GcodeRendererComponent,
+    GalleryComponent,
   ],
-  imports: [CommonModule, GcodeRoutingModule, MatSliderModule, FormsModule],
+  imports: [
+    CommonModule,
+    GcodeRoutingModule,
+    MatSliderModule,
+    FormsModule,
+    FontAwesomeModule,
+  ],
 })
 export class GcodeModule {}
