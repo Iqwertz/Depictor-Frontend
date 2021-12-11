@@ -77,6 +77,16 @@ export class GcodeRendererComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.rendererConfig = {
+      gcodeScale: this.rendererConfigInput.gcodeScale || 4.5,
+      notRenderdLines: this.rendererConfigInput.notRenderdLines || 0,
+      strokeColor: this.rendererConfigInput.strokeColor || '#2E2E2E',
+      strokeColorPassive:
+        this.rendererConfigInput.strokeColorPassive || '#9e9e9e',
+      strokeWidth: this.rendererConfigInput.strokeWidth || 1,
+      drawing: this.rendererConfigInput.drawing || false,
+    };
+
     this.sketch = (s: any) => {
       let that = this;
       let bounds;
@@ -100,6 +110,10 @@ export class GcodeRendererComponent implements AfterViewInit {
         this.$updateDrawingGcode.subscribe(() => {
           updateDrawingGcode();
         });
+
+        if (this.gcodeFile.length > 0) {
+          renderGcode();
+        }
       };
 
       s.draw = () => {};
@@ -151,7 +165,7 @@ export class GcodeRendererComponent implements AfterViewInit {
           color = that.rendererConfig.strokeColorPassive;
         }
 
-        console.log(color);
+        console.log(that.rendererConfig);
 
         //renders gcode
         drawGcode(

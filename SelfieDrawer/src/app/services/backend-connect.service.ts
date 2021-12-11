@@ -80,4 +80,8 @@ export class BackendConnectService {
         //optional Error handling
       });
   }
+
+  getGallery(): Observable<any> {
+    return this.http.post('http://' + this.ip + '/getGcodeGallery', {});
+  }
 }
