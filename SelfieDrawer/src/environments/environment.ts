@@ -8,6 +8,7 @@ export const environment = {
   endGcode: 'M05;\nG01X0Y0;',
   appStateCheckInterval: 4000,
   useCameraAPI: false,
+  drawingOffset: [12.5, 0],
 };
 
 /*

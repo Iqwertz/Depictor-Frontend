@@ -59,7 +59,37 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
       .slice(0, this.notRenderdLines * -1)
       .join('\n');
 
+    strippedGcode = this.applyOffset(strippedGcode);
+
     strippedGcode += environment.endGcode;
     this.backendConnectService.postGcode(strippedGcode);
+  }
+
+  applyOffset(gcode: string): string {
+    let gcodeArray: string[] = gcode.split('\n');
+
+    for (let i = 0; i < gcodeArray.length; i++) {
+      let command = gcodeArray[i];
+      if (command.startsWith('G1')) {
+        let parameter = this.getG1Parameter(command);
+        parameter[0] += environment.drawingOffset[0];
+        parameter[1] += environment.drawingOffset[1];
+        gcodeArray[i] = 'G1 X' + parameter[0] + 'Y ' + parameter[1];
+      }
+    }
+
+    return gcodeArray.join('\n');
+  }
+
+  getG1Parameter(command: string): number[] {
+    let x: number = parseFloat(
+      command
+        .substring(command.indexOf('X') + 1, command.lastIndexOf('Y'))
+        .trim()
+    );
+    let y: number = parseFloat(
+      command.substring(command.indexOf('Y') + 1, command.length).trim()
+    );
+    return [x, y];
   }
 }
