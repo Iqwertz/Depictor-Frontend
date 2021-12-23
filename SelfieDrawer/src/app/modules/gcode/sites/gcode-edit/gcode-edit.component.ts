@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 import { SiteStateService } from '../../../../services/site-state.service';
 import { GcodeRendererComponent } from '../../components/gcode-renderer/gcode-renderer.component';
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './gcode-edit.component.html',
   styleUrls: ['./gcode-edit.component.scss'],
 })
-export class GcodeEditComponent implements OnInit {
+export class GcodeEditComponent implements OnInit, AfterViewInit {
   constructor(
     public gcodeViewerService: GcodeViewerService,
     private backendConnectService: BackendConnectService,
@@ -28,6 +28,12 @@ export class GcodeEditComponent implements OnInit {
       this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
         notRenderdLines: 0,
       });
+    });
+  }
+
+  ngAfterViewInit() {
+    this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
+      notRenderdLines: 0,
     });
   }
 

@@ -84,4 +84,8 @@ export class BackendConnectService {
   getGallery(): Observable<any> {
     return this.http.post('http://' + this.ip + '/getGcodeGallery', {});
   }
+
+  getGcodeById(id: string) {
+    return this.http.post('http://' + this.ip + '/getGcodeById', { id: id });
+  }
 }

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
+import { Store } from '@ngxs/store';
+import { SetAutoRouting } from '../../../../store/app.action';
+import { GcodeViewerService } from '../../services/gcode-viewer.service';
 
 export interface GcodeEntry {
   image: string;
@@ -19,7 +22,9 @@ export class GalleryComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private backendConnectService: BackendConnectService
+    private store: Store,
+    private backendConnectService: BackendConnectService,
+    private gcodeViewerService: GcodeViewerService
   ) {}
 
   ngOnInit(): void {
@@ -27,9 +32,24 @@ export class GalleryComponent implements OnInit {
       this.gallery = res.data;
       console.log(this.gallery);
     });
+
+    this.store.dispatch(new SetAutoRouting(false));
   }
 
   close() {
+    this.store.dispatch(new SetAutoRouting(true));
     this.router.navigate(['']);
+  }
+
+  loadGcodeById(id: string) {
+    this.backendConnectService.getGcodeById(id).subscribe((data: any) => {
+      if (data.err) {
+        //error
+        console.log(data.err);
+      } else {
+        this.gcodeViewerService.setGcodeFile(data.data);
+        this.router.navigate(['gcode', 'editGcode']);
+      }
+    });
   }
 }

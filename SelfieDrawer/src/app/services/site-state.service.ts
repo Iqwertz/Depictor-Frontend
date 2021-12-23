@@ -29,8 +29,12 @@ export class SiteStateService {
   @Select(AppState.ip)
   ip$: any;
 
+  @Select(AppState.autoRouting)
+  autoRouting$: any;
+  autoRouting: boolean = true;
+
   lastAppState: AppStates = 'idle';
-  serverOnline: boolean = false;
+  serverOnline: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +58,10 @@ export class SiteStateService {
       }
     });
 
+    this.autoRouting$.subscribe((autoRouting: boolean) => {
+      this.autoRouting = autoRouting;
+    });
+
     this.checkServerState();
 
     setInterval(() => {
@@ -62,7 +70,7 @@ export class SiteStateService {
   }
 
   checkServerState() {
-    if (this.router.url == '/gcode/gallery') {
+    if (!this.autoRouting) {
       return;
     }
 

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 import { CameraServiceService } from '../../../../services/camera-service.service';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
+import { Store } from '@ngxs/store';
+import { SetAutoRouting } from '../../../../store/app.action';
 
 @Component({
   selector: 'app-cancle-button',
@@ -14,7 +16,8 @@ export class CancleButtonComponent implements OnInit {
     private gcodeViewerService: GcodeViewerService,
     private router: Router,
     private cameraService: CameraServiceService,
-    private backendConnectService: BackendConnectService
+    private backendConnectService: BackendConnectService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {}
@@ -25,6 +28,7 @@ export class CancleButtonComponent implements OnInit {
     this.cameraService.webcamImage = null;
     this.cameraService.base64Image = null;
     this.backendConnectService.cancle();
+    this.store.dispatch(new SetAutoRouting(false));
     this.router.navigate(['start']);
   }
 }
