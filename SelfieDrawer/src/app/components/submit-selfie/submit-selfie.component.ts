@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { BackendConnectService } from '../../services/backend-connect.service';
 
 @Component({
@@ -7,11 +7,13 @@ import { BackendConnectService } from '../../services/backend-connect.service';
   styleUrls: ['./submit-selfie.component.scss'],
 })
 export class SubmitSelfieComponent implements OnInit {
-  constructor(private connectService: BackendConnectService) {}
+  constructor() {}
+
+  @Output() clicked = new EventEmitter<null>();
 
   ngOnInit(): void {}
 
   submit(): void {
-    this.connectService.postSelfie();
+    this.clicked.emit();
   }
 }

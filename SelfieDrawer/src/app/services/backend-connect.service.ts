@@ -26,12 +26,15 @@ export class BackendConnectService {
     });
   }
 
-  postSelfie() {
+  postSelfie(removeBg: boolean) {
     if (this.cameraService.base64Image) {
       let img = this.cameraService.base64Image.split('base64,')[1];
       this.loadingService.isLoading = true;
       this.http
-        .post('http://' + this.ip + '/newPicture', { img: img })
+        .post('http://' + this.ip + '/newPicture', {
+          img: img,
+          removeBg: removeBg,
+        })
         .subscribe((res) => {
           console.log(res);
           if (!res.hasOwnProperty('err')) {

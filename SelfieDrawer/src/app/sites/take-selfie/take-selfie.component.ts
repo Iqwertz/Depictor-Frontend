@@ -2,15 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CameraServiceService } from '../../services/camera-service.service';
 import { SiteStateService } from '../../services/site-state.service';
+import { BackendConnectService } from '../../services/backend-connect.service';
 
 @Component({
   templateUrl: './take-selfie.component.html',
   styleUrls: ['./take-selfie.component.scss'],
 })
 export class TakeSelfieComponent implements OnInit {
-  constructor(public cameraService: CameraServiceService) {}
+  constructor(
+    public cameraService: CameraServiceService,
+    private connectService: BackendConnectService
+  ) {}
 
   enableCameraAPI: boolean = environment.useCameraAPI;
+
+  removeBg: boolean = false;
+
+  setRBG(val: boolean) {
+    this.removeBg = val;
+  }
+
+  postSelfie() {
+    this.connectService.postSelfie(this.removeBg);
+  }
 
   ngOnInit(): void {
     this.cameraService.base64Image = null;

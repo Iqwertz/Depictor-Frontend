@@ -9,7 +9,8 @@
 </div>
 <div class="snapshot-controls" *ngIf="cameraService.base64Image">
     <app-retake-selfie-button></app-retake-selfie-button>
-    <app-submit-selfie></app-submit-selfie>
+    <app-remove-bg-checkbox (buttonChange)="setRBG($event)"></app-remove-bg-checkbox>
+    <app-submit-selfie (clicked)="postSelfie()"></app-submit-selfie>
 </div>
 <app-gallery-button></app-gallery-button>
 <app-loading></app-loading>

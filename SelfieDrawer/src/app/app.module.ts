@@ -20,6 +20,9 @@ import { AppState } from './store/app.state';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ConnectingComponent } from './sites/connecting/connecting.component';
 import { GalleryButtonComponent } from './components/gallery-button/gallery-button.component';
+import { RemoveBgCheckboxComponent } from './components/remove-bg-checkbox/remove-bg-checkbox.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { GalleryButtonComponent } from './components/gallery-button/gallery-butt
     LoadingComponent,
     ConnectingComponent,
     GalleryButtonComponent,
+    RemoveBgCheckboxComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,8 @@ import { GalleryButtonComponent } from './components/gallery-button/gallery-butt
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatCheckboxModule,
+    FormsModule,
     NgxsModule.forRoot([AppState]),
   ],
   providers: [],
