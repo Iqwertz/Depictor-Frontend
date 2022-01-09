@@ -10,6 +10,7 @@ export interface GcodeRendererConfigInput {
   notRenderdLines?: number;
   gcodeScale?: number;
   drawing?: boolean;
+  drawingOffset?: number[];
 }
 
 export interface GcodeRendererConfig {
@@ -19,6 +20,7 @@ export interface GcodeRendererConfig {
   notRenderdLines: number;
   gcodeScale: number;
   drawing: boolean;
+  drawingOffset: number[];
 }
 
 @Component({
@@ -51,6 +53,7 @@ export class GcodeRendererComponent implements AfterViewInit {
     strokeColor: '',
     strokeColorPassive: '',
     strokeWidth: 0,
+    drawingOffset: [0, 0],
   };
 
   constructor(private gcodeViewerService: GcodeViewerService) {}
@@ -66,6 +69,7 @@ export class GcodeRendererComponent implements AfterViewInit {
       strokeColorPassive: config.strokeColorPassive || '#9e9e9e',
       strokeWidth: config.strokeWidth || 1,
       drawing: config.drawing || false,
+      drawingOffset: config.drawingOffset || [0, 0],
     };
 
     this.$renderGcode.next();
@@ -85,6 +89,7 @@ export class GcodeRendererComponent implements AfterViewInit {
         this.rendererConfigInput.strokeColorPassive || '#9e9e9e',
       strokeWidth: this.rendererConfigInput.strokeWidth || 1,
       drawing: this.rendererConfigInput.drawing || false,
+      drawingOffset: this.rendererConfigInput.drawingOffset || [0, 0],
     };
 
     this.sketch = (s: any) => {
@@ -159,6 +164,13 @@ export class GcodeRendererComponent implements AfterViewInit {
           that.offset[0] =
             (s.width - bounds[0] * that.rendererConfig.gcodeScale) / 2;
         }
+
+        that.offset[0] +=
+          that.rendererConfig.drawingOffset[0] *
+          (that.rendererConfig.gcodeScale / 2);
+        that.offset[1] +=
+          that.rendererConfig.drawingOffset[1] *
+          (that.rendererConfig.gcodeScale / 2);
 
         let color: string = that.rendererConfig.strokeColor;
         if (that.rendererConfig.drawing) {

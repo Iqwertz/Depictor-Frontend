@@ -2,7 +2,11 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { SiteStateService } from '../../../../services/site-state.service';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
-import { GcodeRendererComponent } from '../../components/gcode-renderer/gcode-renderer.component';
+import {
+  GcodeRendererComponent,
+  GcodeRendererConfigInput,
+} from '../../components/gcode-renderer/gcode-renderer.component';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   templateUrl: './drawing.component.html',
@@ -26,6 +30,10 @@ export class DrawingComponent implements OnInit, AfterViewInit {
       this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
         notRenderdLines: 0,
         drawing: true,
+        drawingOffset: [
+          environment.drawingOffset[0] * -1,
+          environment.drawingOffset[1] * -1,
+        ],
       });
     });
 
@@ -36,6 +44,10 @@ export class DrawingComponent implements OnInit, AfterViewInit {
     this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
       notRenderdLines: 0,
       drawing: true,
+      drawingOffset: [
+        environment.drawingOffset[0] * -1,
+        environment.drawingOffset[1] * -1,
+      ],
     });
   }
 
