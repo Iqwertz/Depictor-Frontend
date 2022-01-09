@@ -1,8 +1,6 @@
 <div class="gcode-container">
-  <app-gcode-renderer></app-gcode-renderer>
-  <app-select-lines-slider
-    (sliderUpdate)="sliderUpdated($event)"
-  ></app-select-lines-slider>
-  <app-start-draw (clicked)="startDraw()"> </app-start-draw>
-  <app-cancle-button> </app-cancle-button>
+    <app-gcode-renderer></app-gcode-renderer>
+    <app-select-lines-slider (sliderUpdate)="sliderUpdated($event)" [timeEstimate]="estimatedSeconds"></app-select-lines-slider>
+    <app-start-draw (clicked)="startDraw()"> </app-start-draw>
+    <app-cancle-button> </app-cancle-button>
 </div>

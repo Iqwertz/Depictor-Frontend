@@ -23,6 +23,7 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     | undefined;
 
   notRenderdLines: number = 0;
+  estimatedSeconds: number = 0;
 
   ngOnInit(): void {
     screen.orientation.lock('portrait');
@@ -31,6 +32,10 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
       this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
         notRenderdLines: 0,
       });
+      this.estimatedSeconds =
+        this.gcodeViewerService.maxLines * environment.avgTimePerLine;
+
+      console.log(this.estimatedSeconds);
     });
   }
 
@@ -38,6 +43,8 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
       notRenderdLines: 0,
     });
+    this.estimatedSeconds =
+      this.gcodeViewerService.maxLines * environment.avgTimePerLine;
   }
 
   sliderUpdated(nRL: number) {
@@ -45,6 +52,8 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
       notRenderdLines: nRL,
     });
 
+    this.estimatedSeconds =
+      (this.gcodeViewerService.maxLines - nRL) * environment.avgTimePerLine;
     this.notRenderdLines = nRL;
   }
 
