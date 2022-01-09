@@ -23,6 +23,7 @@ import { GalleryButtonComponent } from './components/gallery-button/gallery-butt
 import { RemoveBgCheckboxComponent } from './components/remove-bg-checkbox/remove-bg-checkbox.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { FormsModule } from '@angular/forms';
     MatCheckboxModule,
     FormsModule,
     NgxsModule.forRoot([AppState]),
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

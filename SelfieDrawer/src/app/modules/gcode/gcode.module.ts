@@ -14,6 +14,8 @@ import { SelectLinesSliderComponent } from './components/select-lines-slider/sel
 import { GcodeRendererComponent } from './components/gcode-renderer/gcode-renderer.component';
 import { GalleryComponent } from './sites/gallery/gallery.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NavbarComponent } from '../shared/components/navbar/navbar.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatSliderModule,
     FormsModule,
     FontAwesomeModule,
+    SharedModule,
   ],
 })
 export class GcodeModule {}

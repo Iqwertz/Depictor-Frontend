@@ -13,12 +13,23 @@
     z-index: 5;
 }
 
+.navbar {
+    position: fixed;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
 .header-container {
     width: 100%;
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
+    margin-top: 60px;
     .header {
         margin: 45px;
         padding: 0 40px;

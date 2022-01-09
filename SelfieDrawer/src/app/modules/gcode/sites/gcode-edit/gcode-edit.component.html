@@ -1,6 +1,11 @@
+<div class="navbar">
+    <app-navbar></app-navbar>
+</div>
 <div class="gcode-container">
     <app-gcode-renderer></app-gcode-renderer>
     <app-select-lines-slider (sliderUpdate)="sliderUpdated($event)" [timeEstimate]="estimatedSeconds"></app-select-lines-slider>
-    <app-start-draw (clicked)="startDraw()"> </app-start-draw>
-    <app-cancle-button> </app-cancle-button>
+    <div class="controls">
+        <app-start-draw (clicked)="startDraw()"> </app-start-draw>
+        <app-cancle-button> </app-cancle-button>
+    </div>
 </div>

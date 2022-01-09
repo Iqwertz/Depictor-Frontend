@@ -28,7 +28,7 @@ import { CameraServiceService } from '../../services/camera-service.service';
           height: '50vh',
         })
       ),
-      transition('big => small', [animate('1s ease-out')]),
+      transition('big => small', [animate('0.5s ease-out')]),
     ]),
   ],
 })

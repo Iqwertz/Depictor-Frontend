@@ -98,10 +98,10 @@ export class GcodeRendererComponent implements AfterViewInit {
       let lastDrawingPosition = 0;
       s.setup = () => {
         let width = s.windowWidth / 2;
-        if (width < 700) {
+        if (s.windowWidth < 700) {
           width = s.windowWidth - 20;
         }
-        let canvas2 = s.createCanvas(width, s.windowHeight - 200);
+        let canvas2 = s.createCanvas(width, s.windowHeight - 250);
         canvas2.parent(this.containerId);
         s.strokeWeight(3);
 
