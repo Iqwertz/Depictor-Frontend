@@ -1,16 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200&display=swap");
 body {
-  background: url("assets/drawenBG.svg") no-repeat center center fixed;
-  background-size: cover;
-  margin: 0;
-  padding: 0;
-  font-family: "Josefin Sans", sans-serif;
+    background: url("assets/drawenBG.jpg") no-repeat center center fixed;
+    background-size: cover;
+    // background-color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: "Josefin Sans", sans-serif;
 }
 
 video {
-  border-radius: 15px;
-  box-shadow: -5px 5px 10px #000;
-  background-color: #000;
+    border-radius: 15px;
+    box-shadow: -5px 5px 10px #000;
+    background-color: #000;
 }
