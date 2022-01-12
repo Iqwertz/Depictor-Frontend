@@ -6,6 +6,7 @@ import { BackendConnectService } from '../../../../services/backend-connect.serv
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngxs/store';
 import { SetAutoRouting } from '../../../../store/app.action';
+import { Router } from '@angular/router';
 @Component({
   templateUrl: './gcode-edit.component.html',
   styleUrls: ['./gcode-edit.component.scss'],
@@ -15,7 +16,8 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     public gcodeViewerService: GcodeViewerService,
     private backendConnectService: BackendConnectService,
     private siteStateService: SiteStateService,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {}
 
   @ViewChild(GcodeRendererComponent) renderer:
@@ -72,6 +74,7 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
 
     strippedGcode += environment.endGcode;
     this.backendConnectService.postGcode(strippedGcode);
+    this.router.navigate(['gcode', 'drawing']);
   }
 
   applyOffset(gcode: string, offset: number[]): string {

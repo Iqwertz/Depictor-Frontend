@@ -24,7 +24,6 @@ export class OpenCameraButtonComponent implements OnInit {
     if (environment.useCameraAPI) {
       this.cameraService.toggleCameraWindow();
     } else {
-      console.log('click');
       this.loadingService.isLoading = true;
       this.loadingService.loadingText = 'uploading Image';
       this.fileinput.nativeElement.click();

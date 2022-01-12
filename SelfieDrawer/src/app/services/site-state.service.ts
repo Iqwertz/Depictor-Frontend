@@ -14,11 +14,11 @@ export type AppStates =
   | 'removingBg'
   | 'processingImage'
   | 'rawGcodeReady'
-  | 'drawing'
   | 'error';
 
 export interface StateResponse {
   state: AppStates;
+  isDrawing: boolean;
   data?: string;
 }
 
@@ -88,17 +88,15 @@ export class SiteStateService {
         ) {
           this.loadingService.isLoading = true;
           this.loadingService.serverResponseToLoadingText(res.state);
+          this.router.navigate(['start']);
         } else if (res.state == 'rawGcodeReady') {
-          if (this.lastAppState != 'rawGcodeReady') {
-            this.getGcode();
-          } else if (this.gcodeViewerService.gcodeFile.length <= 5) {
-            this.getGcode();
+          if (this.router.url == '/start') {
+            this.getGeneratedGcode();
           }
-        } else if (res.state == 'drawing') {
-          if (this.lastAppState != 'drawing') {
-            this.getGcode();
+          if (this.lastAppState != 'rawGcodeReady') {
+            this.getGeneratedGcode();
           } else if (this.gcodeViewerService.gcodeFile.length <= 5) {
-            this.getGcode();
+            this.getGeneratedGcode();
           }
         } else if (res.state == 'error') {
           console.error('Something went wrong on the server!');
@@ -116,18 +114,33 @@ export class SiteStateService {
     );
   }
 
-  getGcode() {
-    this.backendConnectService.getGcode().subscribe(
-      (res: any) => {
+  getGeneratedGcode() {
+    this.backendConnectService.getGeneratedGcode().subscribe(
+      (res: StateResponse) => {
         if (res.data) {
           //        console.log(res.data);
           this.gcodeViewerService.setGcodeFile(res.data);
           this.loadingService.isLoading = false;
-          if (res.state == 'drawing') {
-            this.router.navigate(['gcode', 'drawing']);
-          } else {
-            this.router.navigate(['gcode', 'editGcode']);
-          }
+          this.router.navigate(['gcode', 'editGcode']);
+        }
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status == 0) {
+          this.serverOnline = false;
+          console.log('Server Offline!');
+          this.router.navigate(['']);
+        }
+      }
+    );
+  }
+
+  getDrawenGcode() {
+    this.backendConnectService.getDrawenGcode().subscribe(
+      (res: StateResponse) => {
+        if (res.data) {
+          //        console.log(res.data);
+          this.gcodeViewerService.setGcodeFile(res.data);
+          this.loadingService.isLoading = false;
         }
       },
       (error: HttpErrorResponse) => {

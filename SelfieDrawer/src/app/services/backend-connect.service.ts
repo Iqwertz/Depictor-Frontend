@@ -63,8 +63,18 @@ export class BackendConnectService {
     );
   }
 
-  getGcode(): Observable<StateResponse> {
-    return this.http.post<StateResponse>('http://' + this.ip + '/getGcode', {});
+  getDrawenGcode(): Observable<StateResponse> {
+    return this.http.post<StateResponse>(
+      'http://' + this.ip + '/getDrawenGcode',
+      {}
+    );
+  }
+
+  getGeneratedGcode(): Observable<StateResponse> {
+    return this.http.post<StateResponse>(
+      'http://' + this.ip + '/getGeneratedGcode',
+      {}
+    );
   }
 
   postGcode(gcode: string) {

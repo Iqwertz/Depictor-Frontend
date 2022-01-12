@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { SiteStateService } from '../../../../services/site-state.service';
+import {
+  SiteStateService,
+  StateResponse,
+} from '../../../../services/site-state.service';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 import {
@@ -9,6 +12,8 @@ import {
 import { environment } from '../../../../../environments/environment';
 import { Store } from '@ngxs/store';
 import { SetAutoRouting } from '../../../../store/app.action';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './drawing.component.html',
@@ -19,39 +24,63 @@ export class DrawingComponent implements OnInit, AfterViewInit {
     private siteState: SiteStateService,
     private backendConnectService: BackendConnectService,
     private gcodeViewerService: GcodeViewerService,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {}
 
   @ViewChild(GcodeRendererComponent) renderer:
     | GcodeRendererComponent
     | undefined;
 
+  isDrawing: boolean = false;
   drawingProgress: number = 0;
 
   ngOnInit(): void {
-    this.gcodeViewerService.$renderGcode.subscribe(() => {
-      this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
-        notRenderdLines: 0,
-        drawing: true,
-        drawingOffset: [
-          environment.drawingOffset[0] * -1,
-          environment.drawingOffset[1] * -1,
-        ],
-      });
-    });
     this.store.dispatch(new SetAutoRouting(false));
     this.updateDrawingProgress();
   }
 
   ngAfterViewInit(): void {
-    this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
-      notRenderdLines: 0,
-      drawing: true,
-      drawingOffset: [
-        environment.drawingOffset[0] * -1,
-        environment.drawingOffset[1] * -1,
-      ],
-    });
+    this.checkDrawingState();
+    setInterval(() => {
+      this.checkDrawingState();
+    }, environment.appStateCheckInterval);
+  }
+
+  checkDrawingState() {
+    if (this.isDrawing) {
+      return;
+    }
+    this.backendConnectService.getDrawenGcode().subscribe(
+      (res: StateResponse) => {
+        if (res.data && res.isDrawing) {
+          this.gcodeViewerService.setGcodeFile(res.data);
+          this.renderer?.renderGcode(this.gcodeViewerService.gcodeFile, {
+            notRenderdLines: 0,
+            drawing: true,
+            drawingOffset: [
+              environment.drawingOffset[0] * -1,
+              environment.drawingOffset[1] * -1,
+            ],
+          });
+        }
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status == 0) {
+          this.siteState.serverOnline = false;
+          console.log('Server Offline!');
+          this.router.navigate(['']);
+        }
+      }
+    );
+    this.backendConnectService
+      .checkProgress()
+      .subscribe((res: StateResponse) => {
+        this.isDrawing = res.isDrawing;
+        if (!this.isDrawing) {
+          this.drawingProgress = 0;
+        }
+      });
   }
 
   updateDrawingProgress() {
