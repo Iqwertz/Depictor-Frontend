@@ -3,6 +3,8 @@ import { environment } from 'src/environments/environment';
 import { CameraServiceService } from '../../services/camera-service.service';
 import { SiteStateService } from '../../services/site-state.service';
 import { BackendConnectService } from '../../services/backend-connect.service';
+import { Store } from '@ngxs/store';
+import { SetAutoRouting } from '../../store/app.action';
 
 @Component({
   templateUrl: './take-selfie.component.html',
@@ -11,7 +13,8 @@ import { BackendConnectService } from '../../services/backend-connect.service';
 export class TakeSelfieComponent implements OnInit {
   constructor(
     public cameraService: CameraServiceService,
-    private connectService: BackendConnectService
+    private connectService: BackendConnectService,
+    private store: Store
   ) {}
 
   enableCameraAPI: boolean = environment.useCameraAPI;
@@ -29,5 +32,6 @@ export class TakeSelfieComponent implements OnInit {
   ngOnInit(): void {
     this.cameraService.base64Image = null;
     this.cameraService.webcamImage = null;
+    this.store.dispatch(new SetAutoRouting(true));
   }
 }

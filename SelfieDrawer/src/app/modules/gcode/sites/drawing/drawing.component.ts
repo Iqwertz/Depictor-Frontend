@@ -7,6 +7,8 @@ import {
   GcodeRendererConfigInput,
 } from '../../components/gcode-renderer/gcode-renderer.component';
 import { environment } from '../../../../../environments/environment';
+import { Store } from '@ngxs/store';
+import { SetAutoRouting } from '../../../../store/app.action';
 
 @Component({
   templateUrl: './drawing.component.html',
@@ -16,7 +18,8 @@ export class DrawingComponent implements OnInit, AfterViewInit {
   constructor(
     private siteState: SiteStateService,
     private backendConnectService: BackendConnectService,
-    private gcodeViewerService: GcodeViewerService
+    private gcodeViewerService: GcodeViewerService,
+    private store: Store
   ) {}
 
   @ViewChild(GcodeRendererComponent) renderer:
@@ -36,7 +39,7 @@ export class DrawingComponent implements OnInit, AfterViewInit {
         ],
       });
     });
-
+    this.store.dispatch(new SetAutoRouting(false));
     this.updateDrawingProgress();
   }
 
