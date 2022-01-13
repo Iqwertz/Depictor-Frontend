@@ -36,6 +36,11 @@ export class SiteStateService {
   lastAppState: AppStates = 'idle';
   serverOnline: boolean = true;
 
+  appState: StateResponse = {
+    isDrawing: false,
+    state: 'idle',
+  };
+
   constructor(
     private route: ActivatedRoute,
     private store: Store,
@@ -70,12 +75,13 @@ export class SiteStateService {
   }
 
   checkServerState() {
-    if (!this.autoRouting) {
-      return;
-    }
-
     this.backendConnectService.checkProgress().subscribe(
       (res: StateResponse) => {
+        this.appState = res;
+
+        if (!this.autoRouting) {
+          return;
+        }
         console.log(res);
         this.serverOnline = true;
 
