@@ -19,7 +19,6 @@ import { NgxsModule } from '@ngxs/store';
 import { AppState } from './store/app.state';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ConnectingComponent } from './sites/connecting/connecting.component';
-import { GalleryButtonComponent } from './components/gallery-button/gallery-button.component';
 import { RemoveBgCheckboxComponent } from './components/remove-bg-checkbox/remove-bg-checkbox.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
@@ -38,7 +37,6 @@ import { SharedModule } from './modules/shared/shared.module';
     SubmitSelfieComponent,
     LoadingComponent,
     ConnectingComponent,
-    GalleryButtonComponent,
     RemoveBgCheckboxComponent,
   ],
   imports: [

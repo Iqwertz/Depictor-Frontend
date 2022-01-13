@@ -14,7 +14,8 @@ export class TakeSelfieComponent implements OnInit {
   constructor(
     public cameraService: CameraServiceService,
     private connectService: BackendConnectService,
-    private store: Store
+    private store: Store,
+    private siteStateService: SiteStateService
   ) {}
 
   enableCameraAPI: boolean = environment.useCameraAPI;
@@ -33,5 +34,6 @@ export class TakeSelfieComponent implements OnInit {
     this.cameraService.base64Image = null;
     this.cameraService.webcamImage = null;
     this.store.dispatch(new SetAutoRouting(true));
+    this.siteStateService.checkServerState();
   }
 }

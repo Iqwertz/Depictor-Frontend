@@ -47,7 +47,7 @@ export class GalleryComponent implements OnInit {
         //error
         console.log(data.err);
       } else {
-        this.gcodeViewerService.setGcodeFile(data.data);
+        this.gcodeViewerService.setGcodeFile(data.data, false);
         this.router.navigate(['gcode', 'editGcode']);
       }
     });

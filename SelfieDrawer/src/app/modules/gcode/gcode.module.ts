@@ -16,6 +16,7 @@ import { GalleryComponent } from './sites/gallery/gallery.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { SharedModule } from '../shared/shared.module';
+import { DeleteButtonComponent } from './components/delete-button/delete-button.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SharedModule } from '../shared/shared.module';
     SelectLinesSliderComponent,
     GcodeRendererComponent,
     GalleryComponent,
+    DeleteButtonComponent,
   ],
   imports: [
     CommonModule,
