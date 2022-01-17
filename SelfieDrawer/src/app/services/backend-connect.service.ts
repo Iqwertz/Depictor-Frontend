@@ -94,6 +94,20 @@ export class BackendConnectService {
       });
   }
 
+  stop() {
+    this.http.post('http://' + this.ip + '/stop', {}).subscribe((res: any) => {
+      //optional Error handling
+    });
+  }
+
+  delete(id: string) {
+    this.http
+      .post('http://' + this.ip + '/delete', { id: id })
+      .subscribe((res: any) => {
+        //optional Error handling
+      });
+  }
+
   getGallery(): Observable<any> {
     return this.http.post('http://' + this.ip + '/getGcodeGallery', {});
   }

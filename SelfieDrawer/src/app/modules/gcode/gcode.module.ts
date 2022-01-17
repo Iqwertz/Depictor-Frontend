@@ -17,6 +17,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { SharedModule } from '../shared/shared.module';
 import { DeleteButtonComponent } from './components/delete-button/delete-button.component';
+import { StopDrawingButtonComponent } from './components/stop-drawing-button/stop-drawing-button.component';
+import { CanvasGcodeRendererComponent } from './components/canvas-gcode-renderer/canvas-gcode-renderer.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { DeleteButtonComponent } from './components/delete-button/delete-button.
     GcodeRendererComponent,
     GalleryComponent,
     DeleteButtonComponent,
+    StopDrawingButtonComponent,
+    CanvasGcodeRendererComponent,
   ],
   imports: [
     CommonModule,

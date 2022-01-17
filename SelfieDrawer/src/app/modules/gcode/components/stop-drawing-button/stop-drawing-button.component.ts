@@ -1,14 +1,14 @@
+import { Router } from '@angular/router';
+import { GcodeViewerService } from './../../services/gcode-viewer.service';
 import { Component, OnInit } from '@angular/core';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
-import { GcodeViewerService } from '../../services/gcode-viewer.service';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-delete-button',
-  templateUrl: './delete-button.component.html',
-  styleUrls: ['./delete-button.component.scss'],
+  selector: 'app-stop-drawing-button',
+  templateUrl: './stop-drawing-button.component.html',
+  styleUrls: ['./stop-drawing-button.component.scss'],
 })
-export class DeleteButtonComponent implements OnInit {
+export class StopDrawingButtonComponent implements OnInit {
   constructor(
     private backendConnectService: BackendConnectService,
     private gcodeViewerService: GcodeViewerService,
@@ -19,10 +19,10 @@ export class DeleteButtonComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  del() {
-    this.backendConnectService.delete(this.gcodeViewerService.gcodeId);
+  stop() {
+    this.backendConnectService.stop();
     this.showConf = false;
-    this.router.navigate(['gcode', 'gallery']);
+    this.router.navigate(['start']);
   }
 
   cancle() {

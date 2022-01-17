@@ -96,6 +96,7 @@ export class GcodeRendererComponent implements AfterViewInit {
       let that = this;
       let bounds;
       let lastDrawingPosition = 0;
+
       s.setup = () => {
         let width = s.windowWidth / 2;
         if (s.windowWidth < 700) {
@@ -255,6 +256,8 @@ export class GcodeRendererComponent implements AfterViewInit {
                 parameter[0] * scale + offset[0],
                 parameter[1] * scale + offset[1]
               );
+
+              /*  s.line(Math.random(), 10, 1000, 1000); */
             }
             lastCommandParameter = parameter;
           } else if (command.startsWith('M05')) {

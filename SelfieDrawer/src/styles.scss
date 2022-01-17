@@ -15,3 +15,23 @@ video {
     box-shadow: -5px 5px 10px #000;
     background-color: #000;
 }
+
+.snackbar-note {
+    font-family: "Josefin Sans", sans-serif !important;
+    color: #000 !important; // green
+    background-color: #fff !important;
+    border: 2px solid #fbff00 !important;
+    .mat-simple-snackbar-action {
+        color: #ff9090 !important;
+    }
+}
+
+.snackbar-error {
+    font-family: "Josefin Sans", sans-serif !important;
+    color: #000 !important; // green
+    background-color: #fff !important;
+    border: 2px solid #ff1100 !important;
+    .mat-simple-snackbar-action {
+        color: #ff9090 !important;
+    }
+}

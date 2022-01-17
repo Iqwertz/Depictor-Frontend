@@ -1,4 +1,4 @@
-.delete {
+.stop {
     font-size: 2em;
     padding: 10px 0;
     width: 200px;
@@ -6,11 +6,12 @@
     border-radius: 15px;
     box-shadow: 8px 8px 10px #000;
     text-align: center;
-    margin: 5px;
+    margin: 15px 5px;
     cursor: pointer;
 }
 
 .confirm-dialog {
+    z-index: 2;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -46,7 +47,7 @@
 }
 
 @media screen and (max-width: 700px) {
-    .delete {
+    .stop {
         font-size: 1.5em;
         width: 130px;
     }

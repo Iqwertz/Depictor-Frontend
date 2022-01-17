@@ -10,6 +10,8 @@ export const environment = {
   useCameraAPI: false,
   drawingOffset: [25, 0],
   avgTimePerLine: 0.099278441, //in s
+  maxImageFileSize: 0.05, //in MB
+  alertTime: 3,
 };
 
 /*

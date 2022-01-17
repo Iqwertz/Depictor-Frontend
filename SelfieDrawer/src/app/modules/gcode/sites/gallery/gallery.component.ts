@@ -30,7 +30,6 @@ export class GalleryComponent implements OnInit {
   ngOnInit(): void {
     this.backendConnectService.getGallery().subscribe((res: any) => {
       this.gallery = res.data;
-      console.log(this.gallery);
     });
 
     this.store.dispatch(new SetAutoRouting(false));
@@ -47,6 +46,7 @@ export class GalleryComponent implements OnInit {
         //error
         console.log(data.err);
       } else {
+        this.gcodeViewerService.gcodeId = id;
         this.gcodeViewerService.setGcodeFile(data.data, false);
         this.router.navigate(['gcode', 'editGcode']);
       }

@@ -126,6 +126,7 @@ export class SiteStateService {
         if (res.data) {
           //        console.log(res.data);
           this.gcodeViewerService.setGcodeFile(res.data, true);
+          this.gcodeViewerService.gcodeId = '';
           this.loadingService.isLoading = false;
           this.router.navigate(['gcode', 'editGcode']);
         }

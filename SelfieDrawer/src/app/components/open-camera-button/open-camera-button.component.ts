@@ -3,6 +3,7 @@ import { CameraServiceService } from '../../services/camera-service.service';
 import { environment } from '../../../environments/environment';
 import { LoadingService } from '../../services/loading.service';
 import { FileUploadService } from '../../services/file-upload.service';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-open-camera-button',

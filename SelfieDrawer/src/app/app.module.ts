@@ -23,6 +23,7 @@ import { RemoveBgCheckboxComponent } from './components/remove-bg-checkbox/remov
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './modules/shared/shared.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SharedModule } from './modules/shared/shared.module';
     FormsModule,
     NgxsModule.forRoot([AppState]),
     SharedModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CameraServiceService } from './camera-service.service';
+import imageCompression from 'browser-image-compression';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +13,25 @@ export class FileUploadService {
     this.blobToBase64($event.target.files[0]).then(
       (result: string | ArrayBuffer | null) => {
         if (typeof result === 'string') {
-          this.setUploadedImage(result);
+          imageCompression
+            .getFilefromDataUrl(result, 'upload.jpg')
+            .then((file: File) => {
+              imageCompression(file, {
+                maxSizeMB: environment.maxImageFileSize,
+              }).then((file: File) => {
+                imageCompression
+                  .getDataUrlFromFile(file)
+                  .then((b64: string) => {
+                    this.setUploadedImage(b64);
+                  });
+              });
+            });
         }
       }
     );
   }
 
   setUploadedImage(b64Data: string) {
-    console.log(b64Data);
     this.cameraService.base64Image = b64Data;
     this.cameraService.setFlash();
     this.cameraService.toggleCameraWindow();

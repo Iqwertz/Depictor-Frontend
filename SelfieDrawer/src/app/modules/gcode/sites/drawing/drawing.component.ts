@@ -14,6 +14,7 @@ import { Store } from '@ngxs/store';
 import { SetAutoRouting } from '../../../../store/app.action';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CanvasGcodeRendererComponent } from '../../components/canvas-gcode-renderer/canvas-gcode-renderer.component';
 
 @Component({
   templateUrl: './drawing.component.html',
@@ -28,8 +29,8 @@ export class DrawingComponent implements OnInit, AfterViewInit {
     private router: Router
   ) {}
 
-  @ViewChild(GcodeRendererComponent) renderer:
-    | GcodeRendererComponent
+  @ViewChild(CanvasGcodeRendererComponent) renderer:
+    | CanvasGcodeRendererComponent
     | undefined;
 
   isDrawing: boolean = false;

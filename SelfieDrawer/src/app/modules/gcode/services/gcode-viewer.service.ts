@@ -8,6 +8,7 @@ export class GcodeViewerService {
   maxLines: number = 0;
   gcodeFile: string = '';
   isGeneratedGcode: boolean = false; //determins if the current gcode was freshly generated (to enable cancle action or not)
+  gcodeId: string = '';
 
   $renderGcode: Subject<void> = new Subject<void>();
 

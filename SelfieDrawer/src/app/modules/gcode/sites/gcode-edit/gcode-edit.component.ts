@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Store } from '@ngxs/store';
 import { SetAutoRouting } from '../../../../store/app.action';
 import { Router } from '@angular/router';
+import { CanvasGcodeRendererComponent } from '../../components/canvas-gcode-renderer/canvas-gcode-renderer.component';
 @Component({
   templateUrl: './gcode-edit.component.html',
   styleUrls: ['./gcode-edit.component.scss'],
@@ -20,8 +21,8 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     private router: Router
   ) {}
 
-  @ViewChild(GcodeRendererComponent) renderer:
-    | GcodeRendererComponent
+  @ViewChild(CanvasGcodeRendererComponent) renderer:
+    | CanvasGcodeRendererComponent
     | undefined;
 
   notRenderdLines: number = 0;
