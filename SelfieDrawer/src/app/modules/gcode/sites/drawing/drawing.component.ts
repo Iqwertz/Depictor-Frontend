@@ -5,10 +5,6 @@ import {
 } from '../../../../services/site-state.service';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
-import {
-  GcodeRendererComponent,
-  GcodeRendererConfigInput,
-} from '../../components/gcode-renderer/gcode-renderer.component';
 import { environment } from '../../../../../environments/environment';
 import { Store } from '@ngxs/store';
 import { SetAutoRouting } from '../../../../store/app.action';

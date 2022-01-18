@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 import { SiteStateService } from '../../../../services/site-state.service';
-import { GcodeRendererComponent } from '../../components/gcode-renderer/gcode-renderer.component';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngxs/store';

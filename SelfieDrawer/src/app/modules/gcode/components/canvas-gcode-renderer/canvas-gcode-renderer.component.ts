@@ -7,11 +7,27 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import {
-  GcodeRendererConfigInput,
-  GcodeRendererConfig,
-} from '../gcode-renderer/gcode-renderer.component';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
+
+export interface GcodeRendererConfigInput {
+  strokeColor?: string;
+  strokeColorPassive?: string;
+  strokeWidth?: number;
+  notRenderdLines?: number;
+  gcodeScale?: number;
+  drawing?: boolean;
+  drawingOffset?: number[];
+}
+
+export interface GcodeRendererConfig {
+  strokeColor: string;
+  strokeColorPassive: string;
+  strokeWidth: number;
+  notRenderdLines: number;
+  gcodeScale: number;
+  drawing: boolean;
+  drawingOffset: number[];
+}
 
 @Component({
   selector: 'app-canvas-gcode-renderer',

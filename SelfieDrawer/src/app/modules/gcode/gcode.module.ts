@@ -11,7 +11,6 @@ import { DrawingProgressBarComponent } from './components/drawing-progress-bar/d
 import { DrawingComponent } from './sites/drawing/drawing.component';
 import { CancleButtonComponent } from './components/cancle-button/cancle-button.component';
 import { SelectLinesSliderComponent } from './components/select-lines-slider/select-lines-slider.component';
-import { GcodeRendererComponent } from './components/gcode-renderer/gcode-renderer.component';
 import { GalleryComponent } from './sites/gallery/gallery.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
@@ -29,7 +28,6 @@ import { CanvasGcodeRendererComponent } from './components/canvas-gcode-renderer
     DrawingProgressBarComponent,
     CancleButtonComponent,
     SelectLinesSliderComponent,
-    GcodeRendererComponent,
     GalleryComponent,
     DeleteButtonComponent,
     StopDrawingButtonComponent,
