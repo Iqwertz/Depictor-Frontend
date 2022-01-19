@@ -17,7 +17,6 @@ import { SubmitSelfieComponent } from './components/submit-selfie/submit-selfie.
 import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { AppState } from './store/app.state';
-import { LoadingComponent } from './components/loading/loading.component';
 import { ConnectingComponent } from './sites/connecting/connecting.component';
 import { RemoveBgCheckboxComponent } from './components/remove-bg-checkbox/remove-bg-checkbox.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -36,7 +35,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SelfieDisplayComponent,
     RetakeSelfieButtonComponent,
     SubmitSelfieComponent,
-    LoadingComponent,
     ConnectingComponent,
     RemoveBgCheckboxComponent,
   ],

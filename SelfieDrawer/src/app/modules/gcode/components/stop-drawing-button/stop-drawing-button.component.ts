@@ -1,7 +1,8 @@
 import { Router } from '@angular/router';
 import { GcodeViewerService } from './../../services/gcode-viewer.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-stop-drawing-button',
@@ -14,18 +15,13 @@ export class StopDrawingButtonComponent implements OnInit {
     private gcodeViewerService: GcodeViewerService,
     private router: Router
   ) {}
-
-  showConf: boolean = false;
+  @ViewChild('dialog', { static: false })
+  confirmDialog: ConfirmDialogComponent | undefined;
 
   ngOnInit(): void {}
 
   stop() {
     this.backendConnectService.stop();
-    this.showConf = false;
     this.router.navigate(['start']);
-  }
-
-  cancle() {
-    this.showConf = false;
   }
 }

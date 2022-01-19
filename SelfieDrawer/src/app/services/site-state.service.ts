@@ -6,7 +6,7 @@ import { Select, Store } from '@ngxs/store';
 import { AppState } from '../store/app.state';
 import { SetIp } from '../store/app.action';
 import { BackendConnectService } from './backend-connect.service';
-import { LoadingService } from './loading.service';
+import { LoadingService } from '../modules/shared/services/loading.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export type AppStates =

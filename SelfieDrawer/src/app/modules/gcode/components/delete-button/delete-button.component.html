@@ -1,8 +1,3 @@
-<div class="delete" (click)="showConf = true">Delete</div>
-<div class="confirm-dialog" *ngIf="showConf">
-    Are you sure?
-    <div class="buttons">
-        <div class="button cancle" (click)="cancle()">cancle</div>
-        <div class="button confirm" (click)="del()">delete</div>
-    </div>
-</div>
+<div class="delete" (click)="confirmDialog!.show()">Delete</div>
+
+<app-confirm-dialog #dialog (yes)="del()"></app-confirm-dialog>

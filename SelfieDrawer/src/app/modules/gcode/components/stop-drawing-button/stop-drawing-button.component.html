@@ -1,8 +1,2 @@
-<div class="stop" (click)="showConf = true">stop drawing</div>
-<div class="confirm-dialog" *ngIf="showConf">
-    Are you sure?
-    <div class="buttons">
-        <div class="button cancle" (click)="cancle()">cancle</div>
-        <div class="button confirm" (click)="stop()">stop</div>
-    </div>
-</div>
+<div class="stop" (click)="confirmDialog!.show()">stop drawing</div>
+<app-confirm-dialog #dialog (yes)="stop()"></app-confirm-dialog>

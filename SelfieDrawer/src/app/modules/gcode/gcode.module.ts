@@ -18,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
 import { DeleteButtonComponent } from './components/delete-button/delete-button.component';
 import { StopDrawingButtonComponent } from './components/stop-drawing-button/stop-drawing-button.component';
 import { CanvasGcodeRendererComponent } from './components/canvas-gcode-renderer/canvas-gcode-renderer.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CanvasGcodeRendererComponent } from './components/canvas-gcode-renderer
     DeleteButtonComponent,
     StopDrawingButtonComponent,
     CanvasGcodeRendererComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,

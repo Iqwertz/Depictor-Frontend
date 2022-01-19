@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { CameraServiceService } from './camera-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Store, Select } from '@ngxs/store';
-import { Router } from '@angular/router';
-import { LoadingService } from './loading.service';
+import { LoadingService } from '../modules/shared/services/loading.service';
 import { AppState } from '../store/app.state';
 import { Observable } from 'rxjs';
 import { StateResponse } from './site-state.service';
@@ -108,8 +107,10 @@ export class BackendConnectService {
       });
   }
 
-  getGallery(): Observable<any> {
-    return this.http.post('http://' + this.ip + '/getGcodeGallery', {});
+  getGallery(range?: number[]): Observable<any> {
+    return this.http.post('http://' + this.ip + '/getGcodeGallery', {
+      range: range,
+    });
   }
 
   getGcodeById(id: string) {

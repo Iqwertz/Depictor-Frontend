@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
 import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-delete-button',
@@ -15,17 +16,13 @@ export class DeleteButtonComponent implements OnInit {
     private router: Router
   ) {}
 
-  showConf: boolean = false;
+  @ViewChild('dialog', { static: false })
+  confirmDialog: ConfirmDialogComponent | undefined;
 
   ngOnInit(): void {}
 
   del() {
     this.backendConnectService.delete(this.gcodeViewerService.gcodeId);
-    this.showConf = false;
     this.router.navigate(['gcode', 'gallery']);
-  }
-
-  cancle() {
-    this.showConf = false;
   }
 }

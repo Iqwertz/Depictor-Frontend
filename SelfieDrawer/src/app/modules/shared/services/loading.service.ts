@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AppStates } from './site-state.service';
+import { AppStates } from '../../../services/site-state.service';
 
 @Injectable({
   providedIn: 'root',
