@@ -76,6 +76,15 @@ export class BackendConnectService {
     );
   }
 
+  setBGRemoveAPIKey(key: string) {
+    console.log(key);
+    this.http
+      .post('http://' + this.ip + '/setBGRemoveAPIKey', { key: key })
+      .subscribe((res: any) => {
+        console.log(res);
+      });
+  }
+
   postGcode(gcode: string) {
     this.http
       .post('http://' + this.ip + '/postGcode', { gcode: gcode })

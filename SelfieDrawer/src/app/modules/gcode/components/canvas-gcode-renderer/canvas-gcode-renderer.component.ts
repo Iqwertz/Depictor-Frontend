@@ -264,14 +264,6 @@ export class CanvasGcodeRendererComponent implements OnInit, AfterViewInit {
       if (command.startsWith('G1')) {
         let parameter: number[] = this.getG1Parameter(command);
         if (isPenDown || ignorePen) {
-          /*   s.line(
-            lastCommandParameter[0] * scale + offset[0],
-            lastCommandParameter[1] * scale + offset[1],
-            parameter[0] * scale + offset[0],
-            parameter[1] * scale + offset[1]
-          ); */
-
-          // console.log('e');
           this.ctx.moveTo(
             lastCommandParameter[0] * scale + offset[0],
             lastCommandParameter[1] * scale + offset[1]
@@ -280,8 +272,6 @@ export class CanvasGcodeRendererComponent implements OnInit, AfterViewInit {
             parameter[0] * scale + offset[0],
             parameter[1] * scale + offset[1]
           );
-
-          /*  s.line(Math.random(), 10, 1000, 1000); */
         }
         lastCommandParameter = parameter;
       } else if (command.startsWith('M05')) {

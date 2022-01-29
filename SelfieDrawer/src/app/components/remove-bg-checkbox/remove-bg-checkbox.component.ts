@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { SiteStateService } from '../../services/site-state.service';
 
 @Component({
   selector: 'app-remove-bg-checkbox',
@@ -9,7 +10,7 @@ export class RemoveBgCheckboxComponent implements OnInit {
   @Output() buttonChange = new EventEmitter<boolean>();
   checkBoxState: boolean = false;
 
-  constructor() {}
+  constructor(public siteStateService: SiteStateService) {}
 
   ngOnInit(): void {}
 

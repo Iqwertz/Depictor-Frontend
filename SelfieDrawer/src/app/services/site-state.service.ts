@@ -19,6 +19,7 @@ export type AppStates =
 export interface StateResponse {
   state: AppStates;
   isDrawing: boolean;
+  removeBG: boolean;
   data?: string;
 }
 
@@ -39,6 +40,7 @@ export class SiteStateService {
   appState: StateResponse = {
     isDrawing: false,
     state: 'idle',
+    removeBG: false,
   };
 
   constructor(
@@ -60,6 +62,11 @@ export class SiteStateService {
         } else {
           console.log('Error: No Ip provided');
         }
+      }
+
+      if (params.removeBGApiKey) {
+        console.log(params);
+        backendConnectService.setBGRemoveAPIKey(params.removeBGApiKey);
       }
     });
 
