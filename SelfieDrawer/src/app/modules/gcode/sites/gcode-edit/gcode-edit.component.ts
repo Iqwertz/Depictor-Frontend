@@ -65,7 +65,8 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     let serverGcode: string = this.gcodeViewerService.gcodeFile;
     let gcodeArray: string[] = serverGcode.split('\n');
 
-    console.log(this.notRenderdLines);
+    gcodeArray = this.replacePenDownCommand(gcodeArray);
+
     let strippedGcode: string = gcodeArray
       .slice(0, this.notRenderdLines * -1)
       .join('\n');
@@ -75,6 +76,15 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     strippedGcode += environment.endGcode;
     this.backendConnectService.postGcode(strippedGcode);
     this.router.navigate(['gcode', 'drawing']);
+  }
+
+  replacePenDownCommand(gcode: string[]): string[] {
+    for (let i = 0; i < gcode.length; i++) {
+      if (gcode[i].includes('M03')) {
+        gcode[i] = environment.penDownCommand;
+      }
+    }
+    return gcode;
   }
 
   applyOffset(gcode: string, offset: number[]): string {

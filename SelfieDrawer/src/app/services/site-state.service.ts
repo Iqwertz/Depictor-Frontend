@@ -65,7 +65,6 @@ export class SiteStateService {
       }
 
       if (params.removeBGApiKey) {
-        console.log(params);
         backendConnectService.setBGRemoveAPIKey(params.removeBGApiKey);
       }
     });
