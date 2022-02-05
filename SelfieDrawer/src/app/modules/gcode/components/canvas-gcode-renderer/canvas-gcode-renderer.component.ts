@@ -274,9 +274,9 @@ export class CanvasGcodeRendererComponent implements OnInit, AfterViewInit {
           );
         }
         lastCommandParameter = parameter;
-      } else if (command.startsWith('M05')) {
+      } else if (command.startsWith('M05') || command.startsWith('M5')) {
         isPenDown = false;
-      } else if (command.startsWith('M03')) {
+      } else if (command.startsWith('M03') || command.startsWith('M3')) {
         isPenDown = true;
       }
     }
