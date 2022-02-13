@@ -7,6 +7,6 @@ import { SiteStateService } from './services/site-state.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'SelfieDrawer';
+  title = 'Depictor';
   constructor(private siteStateService: SiteStateService) {}
 }
