@@ -60,7 +60,10 @@ export class SiteStateService {
         if (localIp) {
           this.store.dispatch(new SetIp(localIp));
         } else {
-          console.log('Error: No Ip provided');
+          console.log('No Ip found - trying url as ip');
+          store.dispatch(
+            new SetIp(window.location.hostname + ':' + environment.defaultPort)
+          );
         }
       }
 
