@@ -10,10 +10,16 @@ export const environment = {
   penDownCommand: 'M03S500;',
   appStateCheckInterval: 4000,
   useCameraAPI: false,
-  drawingOffset: [25, 0],
   avgTimePerLine: 0.096755719, //in s
   maxImageFileSize: 0.05, //in MB
   alertTime: 3,
+  gcodeRendererDefault: {
+    gcodeScale: 4.5,
+    strokeColor: 'rgba(46, 46, 46, 0.8)',
+    strokeColorPassive: '#9e9e9e',
+    strokeWidth: 1,
+    drawingOffset: [25, 0],
+  },
 };
 
 /*

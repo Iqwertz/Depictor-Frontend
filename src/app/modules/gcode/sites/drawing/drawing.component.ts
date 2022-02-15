@@ -56,8 +56,8 @@ export class DrawingComponent implements OnInit, AfterViewInit {
             notRenderdLines: 0,
             drawing: true,
             drawingOffset: [
-              environment.drawingOffset[0] * -1,
-              environment.drawingOffset[1] * -1,
+              environment.gcodeRendererDefault.drawingOffset[0] * -1,
+              environment.gcodeRendererDefault.drawingOffset[1] * -1,
             ],
           });
         }

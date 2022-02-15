@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { GcodeViewerService } from '../../services/gcode-viewer.service';
+import { environment } from '../../../../../environments/environment';
 
 export interface GcodeRendererConfigInput {
   strokeColor?: string;
@@ -79,14 +80,23 @@ export class CanvasGcodeRendererComponent implements OnInit, AfterViewInit {
     }
 
     this.rendererConfig = {
-      gcodeScale: this.rendererConfigInput.gcodeScale || 4.5,
+      gcodeScale:
+        this.rendererConfigInput.gcodeScale ||
+        environment.gcodeRendererDefault.gcodeScale,
       notRenderdLines: this.rendererConfigInput.notRenderdLines || 0,
-      strokeColor: this.rendererConfigInput.strokeColor || '#2E2E2E',
+      strokeColor:
+        this.rendererConfigInput.strokeColor ||
+        environment.gcodeRendererDefault.strokeColor,
       strokeColorPassive:
-        this.rendererConfigInput.strokeColorPassive || '#9e9e9e',
-      strokeWidth: this.rendererConfigInput.strokeWidth || 1,
+        this.rendererConfigInput.strokeColorPassive ||
+        environment.gcodeRendererDefault.strokeColorPassive,
+      strokeWidth:
+        this.rendererConfigInput.strokeWidth ||
+        environment.gcodeRendererDefault.strokeWidth,
       drawing: this.rendererConfigInput.drawing || false,
-      drawingOffset: this.rendererConfigInput.drawingOffset || [0, 0],
+      drawingOffset:
+        this.rendererConfigInput.drawingOffset ||
+        environment.gcodeRendererDefault.drawingOffset,
     };
 
     this.height = window.innerHeight - 250;
@@ -115,13 +125,19 @@ export class CanvasGcodeRendererComponent implements OnInit, AfterViewInit {
   renderGcode(file: string, config: GcodeRendererConfigInput) {
     this.gcodeFile = file;
     this.rendererConfig = {
-      gcodeScale: config.gcodeScale || 4.5,
+      gcodeScale:
+        config.gcodeScale || environment.gcodeRendererDefault.gcodeScale,
       notRenderdLines: config.notRenderdLines || 0,
-      strokeColor: config.strokeColor || '#2E2E2E',
-      strokeColorPassive: config.strokeColorPassive || '#9e9e9e',
-      strokeWidth: config.strokeWidth || 1,
+      strokeColor:
+        config.strokeColor || environment.gcodeRendererDefault.strokeColor,
+      strokeColorPassive:
+        config.strokeColorPassive ||
+        environment.gcodeRendererDefault.strokeColorPassive,
+      strokeWidth:
+        config.strokeWidth || environment.gcodeRendererDefault.strokeWidth,
       drawing: config.drawing || false,
-      drawingOffset: config.drawingOffset || [0, 0],
+      drawingOffset:
+        config.drawingOffset || environment.gcodeRendererDefault.drawingOffset,
     };
 
     this.render();

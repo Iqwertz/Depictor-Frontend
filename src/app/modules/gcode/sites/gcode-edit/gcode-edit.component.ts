@@ -71,7 +71,10 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
       .slice(0, this.notRenderdLines * -1)
       .join('\n');
 
-    strippedGcode = this.applyOffset(strippedGcode, environment.drawingOffset);
+    strippedGcode = this.applyOffset(
+      strippedGcode,
+      environment.gcodeRendererDefault.drawingOffset
+    );
 
     strippedGcode += environment.endGcode;
     this.backendConnectService.postGcode(strippedGcode);
