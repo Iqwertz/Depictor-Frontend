@@ -1,0 +1,104 @@
+        .settings-container {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 95%;
+            z-index: 22;
+            background-color: #fff;
+            border: 3px solid #000;
+            display: flex;
+            align-items: center;
+            flex-flow: column;
+            border-radius: 10px;
+            padding-bottom: 20px;
+            h1 {
+                font-size: 3em;
+            }
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                font-size: 2em;
+                cursor: pointer;
+            }
+            .divider {
+                margin: 50px 0 20px 0;
+                height: 0px;
+                border: 1px dashed #000;
+                width: 90%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .label {
+                    padding: 0 15px;
+                    font-size: 2em;
+                    background-color: #fff;
+                    width: fit-content;
+                }
+            }
+            .setting-line {
+                width: 90%;
+                height: 50px;
+                border-bottom: 2px solid #000;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 30px;
+                .label {
+                    width: 200px;
+                    &.small {
+                        font-size: 25px;
+                    }
+                }
+                .button-group {
+                    display: flex;
+                    flex-flow: row;
+                }
+                .action-button {
+                    font-size: 16px;
+                    border: 2px dashed #000;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 4px 24px 0 22px;
+                    border-radius: 3px;
+                    margin-left: 10px;
+                    cursor: pointer;
+                    fa-icon {
+                        font-size: 22px;
+                    }
+                    transition: all 0.5s;
+                }
+                .action-button:hover {
+                    padding: 6px 24px 2px 22px;
+                }
+                .action-textinput {
+                    font-family: "Josefin Sans", sans-serif !important;
+                    padding: 6px 5px 4px;
+                    font-size: 22px;
+                    border: 2px dotted #000;
+                }
+            }
+        }
+        
+        @media screen and (max-width: 700px) {
+            .settings-container {
+                overflow-x: scroll;
+                width: 95vw;
+                .setting-line {
+                    padding: 5px 0;
+                    .label {
+                        font-size: 25px;
+                        &.small {
+                            font-size: 20px;
+                        }
+                    }
+                    .action-textinput {
+                        max-width: 20vw;
+                    }
+                }
+            }
+        }

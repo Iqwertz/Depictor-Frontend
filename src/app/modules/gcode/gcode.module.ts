@@ -13,12 +13,10 @@ import { CancleButtonComponent } from './components/cancle-button/cancle-button.
 import { SelectLinesSliderComponent } from './components/select-lines-slider/select-lines-slider.component';
 import { GalleryComponent } from './sites/gallery/gallery.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { SharedModule } from '../shared/shared.module';
 import { DeleteButtonComponent } from './components/delete-button/delete-button.component';
 import { StopDrawingButtonComponent } from './components/stop-drawing-button/stop-drawing-button.component';
 import { CanvasGcodeRendererComponent } from './components/canvas-gcode-renderer/canvas-gcode-renderer.component';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +31,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     DeleteButtonComponent,
     StopDrawingButtonComponent,
     CanvasGcodeRendererComponent,
-    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,

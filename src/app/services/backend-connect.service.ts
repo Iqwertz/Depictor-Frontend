@@ -102,10 +102,32 @@ export class BackendConnectService {
       });
   }
 
+  home() {
+    this.http.post('http://' + this.ip + '/home', {}).subscribe((res: any) => {
+      //optional Error handling
+    });
+  }
+
+  executeGcode(gcode: string) {
+    this.http
+      .post('http://' + this.ip + '/executeGcode', { gcode: gcode })
+      .subscribe((res: any) => {
+        //optional Error handling
+      });
+  }
+
   stop() {
     this.http.post('http://' + this.ip + '/stop', {}).subscribe((res: any) => {
       //optional Error handling
     });
+  }
+
+  shutdown() {
+    this.http
+      .post('http://' + this.ip + '/shutdown', {})
+      .subscribe((res: any) => {
+        //optional Error handling
+      });
   }
 
   delete(id: string) {
