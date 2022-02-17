@@ -48,12 +48,17 @@
     </div>
 
     <div class="setting-line">
-        <div class="label">Frontend</div>
-        <div class="action-button"><b>Update</b></div>
+        <div class="label small">Available Updates:</div>
+        <div class="label small wide" *ngIf="!updatesAvailable">
+            <b>System is on newest version</b>
+        </div>
+        <div class="action-button" *ngIf="updatesAvailable" (click)="update()">
+            <b>{{ availableUpdateVersion }}</b>
+        </div>
     </div>
-    <div class="setting-line">
-        <div class="label">Backend</div>
-        <div class="action-button"><b>Update</b></div>
+
+    <div class="version">
+        Frontend: {{ environment.version }} {{ environment.production ? "" : "Development" }} | Backend: {{ backendVersion.tag }} {{ backendVersion.production ? "" : "Development" }}
     </div>
 </div>
 

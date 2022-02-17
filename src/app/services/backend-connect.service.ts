@@ -6,6 +6,12 @@ import { LoadingService } from '../modules/shared/services/loading.service';
 import { AppState } from '../store/app.state';
 import { Observable } from 'rxjs';
 import { StateResponse } from './site-state.service';
+import { environment } from '../../environments/environment';
+
+export interface BackendVersion {
+  tag: string;
+  production: boolean;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -108,6 +114,13 @@ export class BackendConnectService {
     });
   }
 
+  getBackendVersion(): Observable<BackendVersion> {
+    return this.http.post<BackendVersion>(
+      'http://' + this.ip + '/getVersion',
+      {}
+    );
+  }
+
   executeGcode(gcode: string) {
     this.http
       .post('http://' + this.ip + '/executeGcode', { gcode: gcode })
@@ -120,6 +133,17 @@ export class BackendConnectService {
     this.http.post('http://' + this.ip + '/stop', {}).subscribe((res: any) => {
       //optional Error handling
     });
+  }
+
+  update() {
+    this.http
+      .post('http://' + this.ip + '/update', {
+        version: environment.version,
+        production: environment.production,
+      })
+      .subscribe((res: any) => {
+        //optional Error handling
+      });
   }
 
   shutdown() {

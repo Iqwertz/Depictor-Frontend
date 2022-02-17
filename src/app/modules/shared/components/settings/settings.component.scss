@@ -12,7 +12,7 @@
             align-items: center;
             flex-flow: column;
             border-radius: 10px;
-            padding-bottom: 20px;
+            padding-bottom: 40px;
             h1 {
                 font-size: 3em;
             }
@@ -51,6 +51,9 @@
                     &.small {
                         font-size: 25px;
                     }
+                    &.wide {
+                        width: 300px;
+                    }
                 }
                 .button-group {
                     display: flex;
@@ -82,8 +85,13 @@
                     border: 2px dotted #000;
                 }
             }
+            .version {
+                position: absolute;
+                bottom: 2px;
+                left: 5px;
+            }
         }
-        
+
         @media screen and (max-width: 700px) {
             .settings-container {
                 overflow-x: scroll;
@@ -99,6 +107,9 @@
                     .action-textinput {
                         max-width: 20vw;
                     }
+                }
+                .version {
+                    font-size: 12px;
                 }
             }
         }
