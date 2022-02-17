@@ -88,18 +88,18 @@ export class SettingsComponent implements OnInit {
   }
 
   penUp() {
-    this.backendConnectService.executeGcode('$X;\nM03S500;');
+    this.backendConnectService.executeGcode('$X;\nM05;');
   }
 
   penDown() {
-    this.backendConnectService.executeGcode('$X;\nM05;');
+    this.backendConnectService.executeGcode('$X;\nM03S500;');
   }
 
   checkForUpdates() {
     this.http
       .get('https://api.github.com/repos/iqwertz/depictor/tags')
       .subscribe((res: any) => {
-        if (res[0].name != environment.version) {
+        if (res[0].name == environment.version) {
           this.updatesAvailable = true;
           this.availableUpdateVersion = res[0].name;
         }
