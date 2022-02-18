@@ -75,17 +75,20 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     let gcodeArray: string[] = serverGcode.split('\n');
 
     gcodeArray = this.replacePenDownCommand(gcodeArray);
-
-    let strippedGcode: string = gcodeArray
-      .slice(0, this.notRenderdLines * -1)
-      .join('\n');
-
+    console.log(gcodeArray);
+    let nr = this.notRenderdLines * -1;
+    if (nr == 0) {
+      nr = -1;
+    }
+    let strippedGcode: string = gcodeArray.slice(0, nr).join('\n');
+    console.log(strippedGcode);
     strippedGcode = this.applyOffset(
       strippedGcode,
       environment.gcodeRendererDefault.drawingOffset
     );
-
+    console.log(strippedGcode);
     strippedGcode += this.settings.endGcode;
+    console.log(strippedGcode);
     this.backendConnectService.postGcode(strippedGcode);
     this.router.navigate(['gcode', 'drawing']);
   }
