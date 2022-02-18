@@ -7,6 +7,8 @@ import { AppState } from '../store/app.state';
 import { Observable } from 'rxjs';
 import { StateResponse } from './site-state.service';
 import { environment } from '../../environments/environment';
+import { Settings } from '../modules/shared/components/settings/settings.component';
+import { SetSettings } from '../store/app.action';
 
 export interface BackendVersion {
   tag: string;
@@ -24,10 +26,12 @@ export class BackendConnectService {
   constructor(
     private cameraService: CameraServiceService,
     private http: HttpClient,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private store: Store
   ) {
     this.ip$.subscribe((ip: string) => {
       this.ip = ip;
+      this.syncSettings();
     });
   }
 
@@ -170,5 +174,27 @@ export class BackendConnectService {
 
   getGcodeById(id: string) {
     return this.http.post('http://' + this.ip + '/getGcodeById', { id: id });
+  }
+
+  setSettings(settings: Settings) {
+    this.store.dispatch(new SetSettings(settings));
+    console.log(settings);
+    this.http
+      .post('http://' + this.ip + '/changeSettings', {
+        settings: settings,
+      })
+      .subscribe((res: any) => {
+        //optional error handling
+      });
+  }
+
+  syncSettings() {
+    this.http
+      .post('http://' + this.ip + '/changeSettings', {})
+      .subscribe((res: any) => {
+        if (res.settings) {
+          this.store.dispatch(new SetSettings(res.settings));
+        }
+      });
   }
 }

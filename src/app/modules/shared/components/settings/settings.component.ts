@@ -6,7 +6,12 @@ import {
   ViewChild,
   EventEmitter,
 } from '@angular/core';
-import { faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircle,
+  faInfoCircle,
+  faPowerOff,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   BackendConnectService,
   BackendVersion,
@@ -18,6 +23,13 @@ import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from 'src/app/modules/shared/components/confirm-dialog/confirm-dialog.component';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from '../../services/loading.service';
+
+export interface Settings {
+  endGcode: string;
+  penDownCommand: string;
+  avgTimePerLine: number;
+  maxImageFileSize: number;
+}
 
 @Component({
   selector: 'app-settings',
@@ -39,6 +51,11 @@ export class SettingsComponent implements OnInit {
   bgRemoveApiKey = '';
 
   environment = environment;
+
+  faInfo = faInfoCircle;
+
+  @Select(AppState.settings) settings$: any;
+  settings: Settings = environment.defaultSettings;
 
   backendVersion: BackendVersion = {
     tag: 'NAN',
@@ -64,6 +81,10 @@ export class SettingsComponent implements OnInit {
     this.backendConnectService.getBackendVersion().subscribe((v) => {
       this.backendVersion = v;
       this.checkForUpdates();
+    });
+
+    this.settings$.subscribe((settings: Settings) => {
+      this.settings = settings;
     });
   }
 
@@ -99,7 +120,7 @@ export class SettingsComponent implements OnInit {
     this.http
       .get('https://api.github.com/repos/iqwertz/depictor/tags')
       .subscribe((res: any) => {
-        if (res[0].name == environment.version) {
+        if (res[0].name != environment.version) {
           this.updatesAvailable = true;
           this.availableUpdateVersion = res[0].name;
         }
@@ -118,12 +139,16 @@ export class SettingsComponent implements OnInit {
       });
   }
 
+  setSettings() {
+    this.backendConnectService.setSettings(this.settings);
+  }
+
   update() {
     this.backendConnectService.update();
     this.loadingService.isLoading = true;
     this.loadingService.loadingText = 'updating System! Don`t turn off system';
     setTimeout(() => {
       window.location.reload();
-    }, 60000);
+    }, 90000);
   }
 }

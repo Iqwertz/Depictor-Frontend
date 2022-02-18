@@ -3,15 +3,25 @@ import { CameraServiceService } from './camera-service.service';
 import imageCompression from 'browser-image-compression';
 import { environment } from '../../environments/environment';
 import { LoadingService } from '../modules/shared/services/loading.service';
+import { AppState } from '../store/app.state';
+import { Select } from '@ngxs/store';
+import { Settings } from '../modules/shared/components/settings/settings.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FileUploadService {
+  @Select(AppState.settings) settings$: any;
+  settings: Settings = environment.defaultSettings;
+
   constructor(
     private cameraService: CameraServiceService,
     private loadingService: LoadingService
-  ) {}
+  ) {
+    this.settings$.subscribe((settings: Settings) => {
+      this.settings = settings;
+    });
+  }
 
   parseImageUpload($event: any) {
     this.blobToBase64($event.target.files[0]).then(
@@ -23,7 +33,7 @@ export class FileUploadService {
             .getFilefromDataUrl(result, 'upload.jpg')
             .then((file: File) => {
               imageCompression(file, {
-                maxSizeMB: environment.maxImageFileSize,
+                maxSizeMB: this.settings.maxImageFileSize,
               }).then((file: File) => {
                 imageCompression
                   .getDataUrlFromFile(file)

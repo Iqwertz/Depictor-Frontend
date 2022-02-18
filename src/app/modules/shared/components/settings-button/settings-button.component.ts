@@ -7,7 +7,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./settings-button.component.scss'],
 })
 export class SettingsButtonComponent implements OnInit {
-  showSettings = false;
+  showSettings = true;
   faCog = faCog;
 
   constructor() {}

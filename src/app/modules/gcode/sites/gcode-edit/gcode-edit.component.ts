@@ -3,10 +3,12 @@ import { GcodeViewerService } from '../../services/gcode-viewer.service';
 import { SiteStateService } from '../../../../services/site-state.service';
 import { BackendConnectService } from '../../../../services/backend-connect.service';
 import { environment } from 'src/environments/environment';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
 import { SetAutoRouting } from '../../../../store/app.action';
 import { Router } from '@angular/router';
 import { CanvasGcodeRendererComponent } from '../../components/canvas-gcode-renderer/canvas-gcode-renderer.component';
+import { AppState } from '../../../../store/app.state';
+import { Settings } from '../../../shared/components/settings/settings.component';
 @Component({
   templateUrl: './gcode-edit.component.html',
   styleUrls: ['./gcode-edit.component.scss'],
@@ -24,6 +26,9 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     | CanvasGcodeRendererComponent
     | undefined;
 
+  @Select(AppState.settings) settings$: any;
+  settings: Settings = environment.defaultSettings;
+
   notRenderdLines: number = 0;
   estimatedSeconds: number = 0;
 
@@ -35,9 +40,13 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
         notRenderdLines: 0,
       });
       this.estimatedSeconds =
-        this.gcodeViewerService.maxLines * environment.avgTimePerLine;
+        this.gcodeViewerService.maxLines * this.settings.avgTimePerLine;
 
       console.log(this.estimatedSeconds);
+    });
+
+    this.settings$.subscribe((settings: Settings) => {
+      this.settings = settings;
     });
   }
 
@@ -46,7 +55,7 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
       notRenderdLines: 0,
     });
     this.estimatedSeconds =
-      this.gcodeViewerService.maxLines * environment.avgTimePerLine;
+      this.gcodeViewerService.maxLines * this.settings.avgTimePerLine;
   }
 
   sliderUpdated(nRL: number) {
@@ -55,7 +64,7 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
     });
 
     this.estimatedSeconds =
-      (this.gcodeViewerService.maxLines - nRL) * environment.avgTimePerLine;
+      (this.gcodeViewerService.maxLines - nRL) * this.settings.avgTimePerLine;
     this.notRenderdLines = nRL;
   }
 
@@ -76,7 +85,7 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
       environment.gcodeRendererDefault.drawingOffset
     );
 
-    strippedGcode += environment.endGcode;
+    strippedGcode += this.settings.endGcode;
     this.backendConnectService.postGcode(strippedGcode);
     this.router.navigate(['gcode', 'drawing']);
   }
@@ -84,7 +93,7 @@ export class GcodeEditComponent implements OnInit, AfterViewInit {
   replacePenDownCommand(gcode: string[]): string[] {
     for (let i = 0; i < gcode.length; i++) {
       if (gcode[i].includes('M03')) {
-        gcode[i] = environment.penDownCommand;
+        gcode[i] = this.settings.penDownCommand;
       }
     }
     return gcode;

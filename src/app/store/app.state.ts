@@ -12,12 +12,14 @@
 */
 
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { SetIp, SetAutoRouting } from './app.action';
+import { SetIp, SetAutoRouting, SetSettings } from './app.action';
 import { environment } from '../../environments/environment';
+import { Settings } from '../modules/shared/components/settings/settings.component';
 
 export interface AppStateModel {
   ip: string;
   autoRouting: boolean;
+  settings: Settings;
 }
 
 @State<AppStateModel>({
@@ -25,6 +27,7 @@ export interface AppStateModel {
   defaults: {
     ip: environment.ip,
     autoRouting: true,
+    settings: environment.defaultSettings,
   },
 })
 export class AppState {
@@ -49,6 +52,18 @@ export class AppState {
   SetAutoRouting(context: StateContext<AppStateModel>, action: SetAutoRouting) {
     context.patchState({
       autoRouting: action.autoRouting,
+    });
+  }
+
+  @Selector()
+  static settings(state: AppStateModel) {
+    return state.settings;
+  }
+
+  @Action(SetSettings)
+  SetSettings(context: StateContext<AppStateModel>, action: SetSettings) {
+    context.patchState({
+      settings: action.settings,
     });
   }
 }
