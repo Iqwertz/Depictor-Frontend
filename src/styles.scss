@@ -2,8 +2,8 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200&display=swap");
 body {
-    background: url("assets/drawenBG.jpg") no-repeat center center fixed;
-    background-size: cover;
+    background: url("assets/depictorBGBig.png") no-repeat center center fixed;
+    background-size: contain;
     // background-color: #fff;
     margin: 0;
     padding: 0;
@@ -33,5 +33,11 @@ video {
     border: 2px solid #ff1100 !important;
     .mat-simple-snackbar-action {
         color: #ff9090 !important;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    body {
+        background-size: cover;
     }
 }

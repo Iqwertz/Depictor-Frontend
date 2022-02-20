@@ -298,6 +298,16 @@ export class CanvasGcodeRendererComponent implements OnInit, AfterViewInit {
     }
 
     this.ctx.stroke();
+
+    /*     console.log(this.canvas?.nativeElement.toDataURL('image/png'));
+
+    let t = this.canvas?.nativeElement.toDataURL('image/png');
+    if (t) {
+      const link = document.createElement('a');
+      link.href = t;
+      link.download = 'img.png';
+      link.click();
+    } */
   }
 
   private clearCanvas() {
