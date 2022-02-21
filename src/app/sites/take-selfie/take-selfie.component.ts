@@ -34,6 +34,5 @@ export class TakeSelfieComponent implements OnInit {
     this.cameraService.base64Image = null;
     this.cameraService.webcamImage = null;
     this.store.dispatch(new SetAutoRouting(true));
-    this.siteStateService.checkServerState();
   }
 }

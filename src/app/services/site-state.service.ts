@@ -76,8 +76,17 @@ export class SiteStateService {
       this.autoRouting = autoRouting;
     });
 
-    this.checkServerState();
-
+    let hasPreviousNavigation = Boolean(
+      this.router.getCurrentNavigation()?.previousNavigation
+    );
+    if (!hasPreviousNavigation) {
+      backendConnectService.checkProgress().subscribe((res) => {
+        if (res.isDrawing) {
+          console.log('drawing');
+          this.router.navigate(['gcode', 'drawing']);
+        }
+      });
+    }
     setInterval(() => {
       this.checkServerState();
     }, environment.appStateCheckInterval);
