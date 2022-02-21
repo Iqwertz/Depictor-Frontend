@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { LoadingService } from '../../modules/shared/services/loading.service';
 import { FileUploadService } from '../../services/file-upload.service';
 import { SnackbarService } from '../../services/snackbar.service';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-open-camera-button',
@@ -18,6 +19,8 @@ export class OpenCameraButtonComponent implements OnInit {
   ) {}
 
   @ViewChild('uploader') fileinput: any;
+
+  faCamera = faCamera;
 
   ngOnInit(): void {}
 
